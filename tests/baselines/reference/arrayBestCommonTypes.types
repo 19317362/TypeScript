@@ -255,16 +255,16 @@ module EmptyTypes {
 >x : boolean
 >y : base
 >base : base
->[{ x: true, y: new derived() }, { x: false, y: new base() }] : { x: boolean; y: derived; }[]
->{ x: true, y: new derived() } : { x: boolean; y: derived; }
->x : boolean
->true : boolean
+>[{ x: true, y: new derived() }, { x: false, y: new base() }] : ({ x: true; y: derived; } | { x: false; y: base; })[]
+>{ x: true, y: new derived() } : { x: true; y: derived; }
+>x : true
+>true : true
 >y : derived
 >new derived() : derived
 >derived : typeof derived
->{ x: false, y: new base() } : { x: boolean; y: base; }
->x : boolean
->false : boolean
+>{ x: false, y: new base() } : { x: false; y: base; }
+>x : false
+>false : false
 >y : base
 >new base() : base
 >base : typeof base
@@ -366,22 +366,22 @@ module EmptyTypes {
 >base2 : typeof base2
 
             var b1 = [baseObj, base2Obj, ifaceObj];
->b1 : base[]
->[baseObj, base2Obj, ifaceObj] : base[]
+>b1 : iface[]
+>[baseObj, base2Obj, ifaceObj] : iface[]
 >baseObj : base
 >base2Obj : base2
 >ifaceObj : iface
 
             var b2 = [base2Obj, baseObj, ifaceObj];
->b2 : base2[]
->[base2Obj, baseObj, ifaceObj] : base2[]
+>b2 : iface[]
+>[base2Obj, baseObj, ifaceObj] : iface[]
 >base2Obj : base2
 >baseObj : base
 >ifaceObj : iface
 
             var b3 = [baseObj, ifaceObj, base2Obj];
->b3 : base[]
->[baseObj, ifaceObj, base2Obj] : base[]
+>b3 : iface[]
+>[baseObj, ifaceObj, base2Obj] : iface[]
 >baseObj : base
 >ifaceObj : iface
 >base2Obj : base2
@@ -658,16 +658,16 @@ module NonEmptyTypes {
 >x : boolean
 >y : base
 >base : base
->[{ x: true, y: new derived() }, { x: false, y: new base() }] : { x: boolean; y: base; }[]
->{ x: true, y: new derived() } : { x: boolean; y: derived; }
->x : boolean
->true : boolean
+>[{ x: true, y: new derived() }, { x: false, y: new base() }] : ({ x: true; y: derived; } | { x: false; y: base; })[]
+>{ x: true, y: new derived() } : { x: true; y: derived; }
+>x : true
+>true : true
 >y : derived
 >new derived() : derived
 >derived : typeof derived
->{ x: false, y: new base() } : { x: boolean; y: base; }
->x : boolean
->false : boolean
+>{ x: false, y: new base() } : { x: false; y: base; }
+>x : false
+>false : false
 >y : base
 >new base() : base
 >base : typeof base

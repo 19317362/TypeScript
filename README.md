@@ -5,7 +5,7 @@ A fork of Typescript 1.8 that emits classes in a way that ExtJS understands.
 
 ##Why?
 
-The Javascript emitted by the Typescript compiler is not compatible with the ExtJS class system. ExtJS requires classes to be defined using syntax like `Ext.define(CLASSNAME, MEMBERS);` but Typescript emits code based around prototypes.
+[TypeScript](http://www.typescriptlang.org/) is a language for application-scale JavaScript. TypeScript adds optional types, classes, and modules to JavaScript. TypeScript supports tools for large-scale JavaScript applications for any browser, for any host, on any OS. TypeScript compiles to readable, standards-based JavaScript. Try it out at the [playground](http://www.typescriptlang.org/Playground), and stay up to date via [our blog](https://blogs.msdn.microsoft.com/typescript) and [Twitter account](https://twitter.com/typescriptlang).
 
 This forked compiler emits code that looks just like the ExtJS classes you would write in regular Javascript.
 
@@ -43,15 +43,32 @@ This project is compatible with Typescript 1.8 / 1.5 / 1.4 and ExtJS 3, 4 and 5.
 - Download latest modified compiler: https://github.com/fabioparra/TypeScript/releases/tag/v1.5
 - Run copy_to_vs2015.bat file as administrator
 
-##Usage with Visual Studio 2013 (TypeScript 1.4)
+Install Gulp tools and dev dependencies:
 
-####Update tsc.js and typescriptServices.js files (used by visual studio editor and msbuild tasks )
+```
+npm install -g gulp
+npm install
+```
 
 - Install vs 2013 plugin: https://visualstudiogallery.msdn.microsoft.com/2d42d8dc-e085-45eb-a30b-3f7d50d55304
 - Download latest modified compiler: https://github.com/fabioparra/TypeScript/releases/tag/v1.4
 - Run copy_to_vs2013.bat file as administrator
 
-##Usage with IntelliJ IDEA
+```
+gulp local            # Build the compiler into built/local 
+gulp clean            # Delete the built compiler 
+gulp LKG              # Replace the last known good with the built one.
+                      # Bootstrapping step to be executed when the built compiler reaches a stable state.
+gulp tests            # Build the test infrastructure using the built compiler. 
+gulp runtests         # Run tests using the built compiler and test infrastructure. 
+                      # You can override the host or specify a test for this command. 
+                      # Use host=<hostName> or tests=<testPath>. 
+gulp runtests-browser # Runs the tests using the built run.js file. Syntax is gulp runtests. Optional
+                        parameters 'host=', 'tests=[regex], reporter=[list|spec|json|<more>]'.
+gulp baseline-accept  # This replaces the baseline test results with the results obtained from gulp runtests.
+gulp lint             # Runs tslint on the TypeScript source.
+gulp help             # List the above commands. 
+```
 
 IntelliJ IDEA 14 (Ultimate Edition only) has Typescript support. The ExtJS emitter can be used instead of the regular compiler.
 
