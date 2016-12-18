@@ -16,12 +16,12 @@ var [a3, [[a4]], a5]: [number, [[string]], boolean] = [1, [["hello"]], true];
 >a3 : number
 >a4 : string
 >a5 : boolean
->[1, [["hello"]], true] : [number, [[string]], boolean]
+>[1, [["hello"]], true] : [number, [[string]], true]
 >1 : number
 >[["hello"]] : [[string]]
 >["hello"] : [string]
 >"hello" : string
->true : boolean
+>true : true
 
 // The type T associated with a destructuring variable declaration is determined as follows:
 //      Otherwise, if the declaration includes an initializer expression, T is the type of that initializer expression.
@@ -52,21 +52,21 @@ var [b2 = 3, b3 = true, b4 = temp] = [3, false, { t1: false, t2: "hello" }];
 >true : boolean
 >b4 : { t1: boolean; t2: string; }
 >temp : { t1: boolean; t2: string; }
->[3, false, { t1: false, t2: "hello" }] : [number, boolean, { t1: boolean; t2: string; }]
+>[3, false, { t1: false, t2: "hello" }] : [number, false, { t1: false; t2: string; }]
 >3 : number
->false : boolean
->{ t1: false, t2: "hello" } : { t1: boolean; t2: string; }
->t1 : boolean
->false : boolean
+>false : false
+>{ t1: false, t2: "hello" } : { t1: false; t2: string; }
+>t1 : false
+>false : false
 >t2 : string
 >"hello" : string
 
 var [b5 = 3, b6 = true, b7 = temp] = [undefined, undefined, undefined];
->b5 : any
+>b5 : number
 >3 : number
->b6 : any
+>b6 : boolean
 >true : boolean
->b7 : any
+>b7 : { t1: boolean; t2: string; }
 >temp : { t1: boolean; t2: string; }
 >[undefined, undefined, undefined] : [undefined, undefined, undefined]
 >undefined : undefined
@@ -84,8 +84,8 @@ var [...c1] = [1,2,3];
 >3 : number
 
 var [...c2] = [1,2,3, "string"]; 
->c2 : (number | string)[]
->[1,2,3, "string"] : (number | string)[]
+>c2 : (string | number)[]
+>[1,2,3, "string"] : (string | number)[]
 >1 : number
 >2 : number
 >3 : number
@@ -113,9 +113,9 @@ var temp1 = [true, false, true]
 >true : boolean
 
 var [d3, d4] = [1, "string", ...temp1];
->d3 : number | string | boolean
->d4 : number | string | boolean
->[1, "string", ...temp1] : (number | string | boolean)[]
+>d3 : string | number | boolean
+>d4 : string | number | boolean
+>[1, "string", ...temp1] : (string | number | boolean)[]
 >1 : number
 >"string" : string
 >...temp1 : boolean
