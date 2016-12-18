@@ -28,7 +28,7 @@ var y: typeof foo.C1.s1 = false;
 >foo : typeof foo
 >C1 : typeof foo.C1
 >s1 : boolean
->false : boolean
+>false : false
 
 var z: foo.M1.I2;
 >z : f.I2
@@ -41,7 +41,7 @@ var e: number = <foo.E1>0;
 ><foo.E1>0 : foo.E1
 >foo : any
 >E1 : foo.E1
->0 : number
+>0 : 0
 
 === tests/cases/conformance/externalModules/foo_0.ts ===
 export class C1 {
