@@ -1,14 +1,14 @@
 === tests/cases/conformance/types/stringLiteral/stringLiteralTypesAsTags03.ts ===
 
 type Kind = "A" | "B"
->Kind : Kind
+>Kind : "A" | "B"
 
 interface Entity {
 >Entity : Entity
 
     kind: Kind;
->kind : Kind
->Kind : Kind
+>kind : "A" | "B"
+>Kind : "A" | "B"
 }
 
 interface A extends Entity {
@@ -57,17 +57,17 @@ function hasKind(entity: Entity, kind: Kind): entity is Entity {
 >hasKind : { (entity: Entity, kind: "A"): entity is A; (entity: Entity, kind: "B"): entity is B; }
 >entity : Entity
 >Entity : Entity
->kind : Kind
->Kind : Kind
+>kind : "A" | "B"
+>Kind : "A" | "B"
 >entity : any
 >Entity : Entity
 
     return entity.kind === kind;
 >entity.kind === kind : boolean
->entity.kind : Kind
+>entity.kind : "A" | "B"
 >entity : Entity
->kind : Kind
->kind : Kind
+>kind : "A" | "B"
+>kind : "A" | "B"
 }
 
 let x: A = {
@@ -96,8 +96,8 @@ if (hasKind(x, "A")) {
 }
 else {
     let b = x;
->b : never
->x : never
+>b : A
+>x : A
 }
 
 if (!hasKind(x, "B")) {
@@ -113,6 +113,6 @@ if (!hasKind(x, "B")) {
 }
 else {
     let d = x;
->d : A & B
->x : A & B
+>d : A
+>x : A
 }

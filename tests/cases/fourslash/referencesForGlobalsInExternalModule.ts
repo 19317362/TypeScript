@@ -2,20 +2,23 @@
 
 // Global variable reference.
 
-////var [|topLevelVar|] = 2;
-////var topLevelVar2 = [|topLevelVar|];
+////var /*1*/topLevelVar = 2;
+////var topLevelVar2 = topLevelVar;
 ////
-////class [|topLevelClass|] { }
-////var c = new [|topLevelClass|]();
+////class /*2*/topLevelClass { }
+////var c = new topLevelClass();
 ////
-////interface [|topLevelInterface|] { }
-////var i: [|topLevelInterface|];
+////interface topLevelInterface { }
+////var i: /*3*/topLevelInterface;
 ////
-////module [|topLevelModule|] {
+////module topLevelModule {
 ////    export var x;
 ////}
-////var x = [|topLevelModule|].x;
+////var x = /*4*/topLevelModule.x;
 ////
 ////export = x;
 
-verify.rangesWithSameTextReferenceEachOther();
+test.markers().forEach(m => {
+    goTo.position(m.position, m.fileName);
+    verify.referencesCountIs(2);
+});

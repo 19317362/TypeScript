@@ -2,8 +2,8 @@
 
 type T = "" | "foo";
 
-let x: T = undefined;
-let y: T = undefined;
+let x: T = "";
+let y: T = "foo";
 
 if (x === "") {
     let a = x;

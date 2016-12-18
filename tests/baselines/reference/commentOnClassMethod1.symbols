@@ -6,6 +6,6 @@ class WebControls {
      * Render a control
      */
     createControl(): any {
->createControl : Symbol(WebControls.createControl, Decl(commentOnClassMethod1.ts, 0, 19))
+>createControl : Symbol(createControl, Decl(commentOnClassMethod1.ts, 0, 19))
     }
 }

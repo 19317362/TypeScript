@@ -1,10 +1,10 @@
-// @declaration: true
+// private constructors are not allowed
 
 class C {
     private constructor() { }
 }
 
-var c = new C(); // error C is private
+var c = new C();
 var r: () => void = c.constructor;
 
 class C2 {
@@ -12,5 +12,5 @@ class C2 {
     private constructor(x: any) { }
 }
 
-var c2 = new C2(); // error C2 is private
+var c2 = new C2();
 var r2: (x: number) => void = c2.constructor;

@@ -3,10 +3,10 @@
 ////function foo(strOrNum: string | number) {
 ////    /*1*/
 ////    if (typeof strOrNum === "number") {
-////        strOrNum/*2*/;
+////        /*2*/ 
 ////    }
 ////    else {
-////        strOrNum/*3*/;
+////        /*3*/
 ////    }
 ////}
 

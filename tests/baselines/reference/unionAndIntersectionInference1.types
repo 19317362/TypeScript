@@ -13,12 +13,12 @@ var y: Y = <Y>undefined;
 >undefined : undefined
 
 function destructure<a, r>(
->destructure : <a, r>(something: Y | a, haveValue: (value: a) => r, haveY: (value: Y) => r) => r
+>destructure : <a, r>(something: a | Y, haveValue: (value: a) => r, haveY: (value: Y) => r) => r
 >a : a
 >r : r
 
     something: a | Y,
->something : Y | a
+>something : a | Y
 >a : a
 >Y : Y
 
@@ -40,7 +40,7 @@ function destructure<a, r>(
     return something === y ? haveY(y) : haveValue(<a>something);
 >something === y ? haveY(y) : haveValue(<a>something) : r
 >something === y : boolean
->something : Y | a
+>something : a | Y
 >y : Y
 >haveY(y) : r
 >haveY : (value: Y) => r
@@ -49,7 +49,7 @@ function destructure<a, r>(
 >haveValue : (value: a) => r
 ><a>something : a
 >a : a
->something : Y | a
+>something : a | Y
 }
 
 var value = Math.random() > 0.5 ? 'hey!' : <Y>undefined;
@@ -69,7 +69,7 @@ var value = Math.random() > 0.5 ? 'hey!' : <Y>undefined;
 var result = destructure(value, text => 'string', y => 'other one'); // text: string, y: Y
 >result : string
 >destructure(value, text => 'string', y => 'other one') : string
->destructure : <a, r>(something: Y | a, haveValue: (value: a) => r, haveY: (value: Y) => r) => r
+>destructure : <a, r>(something: a | Y, haveValue: (value: a) => r, haveY: (value: Y) => r) => r
 >value : string | Y
 >text => 'string' : (text: string) => string
 >text : string
@@ -146,14 +146,14 @@ function baz1<a>(value: void|a): void {
 // Repro from #5417
 
 type Maybe<T> = T | void;
->Maybe : Maybe<T>
+>Maybe : T | void
 >T : T
 >T : T
 
 function get<U>(x: U | void): U {
->get : <U>(x: void | U) => U
+>get : <U>(x: U | void) => U
 >U : U
->x : void | U
+>x : U | void
 >U : U
 >U : U
 
@@ -162,15 +162,15 @@ function get<U>(x: U | void): U {
 }
 
 let foo: Maybe<string>;
->foo : Maybe<string>
->Maybe : Maybe<T>
+>foo : string | void
+>Maybe : T | void
 
 get(foo).toUpperCase(); // Ok
 >get(foo).toUpperCase() : string
 >get(foo).toUpperCase : () => string
 >get(foo) : string
->get : <U>(x: void | U) => U
->foo : Maybe<string>
+>get : <U>(x: U | void) => U
+>foo : string | void
 >toUpperCase : () => string
 
 // Repro from #5456

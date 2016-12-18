@@ -5,9 +5,9 @@
 if (perftest.hasLogIOFlag()) {
     perftest.interceptIO();
 
-    const compilerHost: ts.CompilerHost = {
+    var compilerHost: ts.CompilerHost = {
         getSourceFile: (s, v) => {
-            const content = perftest.readFile(s);
+            var content = perftest.readFile(s);
             return content !== undefined ? ts.createSourceFile(s, content, v) : undefined;
         },
         getDefaultLibFileName: () => ts.combinePaths(ts.getDirectoryPath(ts.normalizePath(perftest.getExecutingFilePath())), "lib.d.ts"),
@@ -18,13 +18,13 @@ if (perftest.hasLogIOFlag()) {
         getNewLine: () => ts.sys.newLine
     };
 
-    const commandLine = ts.parseCommandLine(perftest.getArgsWithoutLogIOFlag());
-    const program = ts.createProgram(commandLine.fileNames, commandLine.options, compilerHost);
-    const fileNames = program.getSourceFiles().map(f => f.fileName);
+    var commandLine = ts.parseCommandLine(perftest.getArgsWithoutLogIOFlag());
+    var program = ts.createProgram(commandLine.fileNames, commandLine.options, compilerHost);
+    var fileNames = program.getSourceFiles().map(f => f.fileName);
     perftest.writeIOLog(fileNames);
 }
 else {
-    const io = perftest.prepare();
+    var io = perftest.prepare();
     ts.executeCommandLine(perftest.getArgsWithoutIOLogFile());
     perftest.write(io.getOut());
 }

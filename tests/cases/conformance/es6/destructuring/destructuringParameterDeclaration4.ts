@@ -26,7 +26,7 @@ a6([1, 2, "string"]);                   // Error, parameter type is number[]
 
 var temp = [1, 2, 3];
 class C {
-    constructor(public ...temp) { }  // Error, rest parameter can't have properties
+    constructor(public ...temp) { }  // Error, rest parameter can't have accessibilityModifier
 }
 
 // Rest parameter with generic

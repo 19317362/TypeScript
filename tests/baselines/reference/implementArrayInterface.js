@@ -10,7 +10,7 @@ declare class MyArray<T> implements Array<T> {
     reverse(): T[];
     shift(): T;
     slice(start?: number, end?: number): T[];
-    sort(compareFn?: (a: T, b: T) => number): this;
+    sort(compareFn?: (a: T, b: T) => number): T[];
     splice(start: number): T[];
     splice(start: number, deleteCount: number, ...items: T[]): T[];
     unshift(...items: T[]): number;

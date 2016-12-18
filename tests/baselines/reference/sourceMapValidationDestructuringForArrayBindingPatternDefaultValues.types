@@ -534,7 +534,7 @@ for (let [numberA3 = -1, ...robotAInfo] = robotA, i = 0; i < 1; i++) {
 >numberA3 : number
 >-1 : number
 >1 : number
->robotAInfo : (string | number)[]
+>robotAInfo : (number | string)[]
 >robotA : [number, string, string]
 >i : number
 >0 : number
@@ -555,7 +555,7 @@ for (let [numberA3 = -1, ...robotAInfo] = getRobot(), i = 0; i < 1; i++) {
 >numberA3 : number
 >-1 : number
 >1 : number
->robotAInfo : (string | number)[]
+>robotAInfo : (number | string)[]
 >getRobot() : [number, string, string]
 >getRobot : () => [number, string, string]
 >i : number
@@ -574,11 +574,11 @@ for (let [numberA3 = -1, ...robotAInfo] = getRobot(), i = 0; i < 1; i++) {
 >numberA3 : number
 }
 for (let [numberA3 = -1, ...robotAInfo] = [2, "trimmer", "trimming"], i = 0; i < 1; i++) {
->numberA3 : string | number
+>numberA3 : number | string
 >-1 : number
 >1 : number
->robotAInfo : (string | number)[]
->[2, "trimmer", "trimming"] : (string | number)[]
+>robotAInfo : (number | string)[]
+>[2, "trimmer", "trimming"] : (number | string)[]
 >2 : number
 >"trimmer" : string
 >"trimming" : string
@@ -595,5 +595,5 @@ for (let [numberA3 = -1, ...robotAInfo] = [2, "trimmer", "trimming"], i = 0; i <
 >console.log : (msg: any) => void
 >console : { log(msg: any): void; }
 >log : (msg: any) => void
->numberA3 : string | number
+>numberA3 : number | string
 }

@@ -1,12 +1,15 @@
 /// <reference path='fourslash.ts'/>
 
 ////class Foo {
-////    public [|12|]: any;
+////    public /*1*/12: any;
 ////}
 ////
 ////var x: Foo;
-////x[[|12|]];
-////x = { "[|12|]": 0 };
-////x = { [|12|]: 0 };
+////x[/*2*/12];
+////x = { "12": 0 };
+////x = { /*3*/12: 0 };
 
-verify.rangesReferenceEachOther();
+test.markers().forEach((m) => {
+    goTo.position(m.position, m.fileName);
+    verify.referencesCountIs(4);
+});

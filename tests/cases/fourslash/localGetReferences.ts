@@ -2,39 +2,35 @@
 
 // @Filename: localGetReferences_1.ts
 ////// Comment Refence Test: g/*1*/lobalVar
-////// References to a variable declared in global.
-////var [|globalVar|]: n/*2*/umber = 2;
+////var g/*3*/lobalVar: n/*2*/umber = 2;
 ////
 ////class fooCls {
-////    // References to static variable declared in a class.
-////    static [|clsSVar|] = 1;
-////    // References to a variable declared in a class.
-////    [|clsVar|] = 1;
+////    static clsS/*5*/Var = 1;
+////    //Declare
+////    cls/*4*/Var = 1;
 ////
-////    constructor (public [|clsParam|]: number) {
+////    constructor (public clsParam: number) {
 ////        //Increments
-////        [|globalVar|]++;
-////        this.[|clsVar|]++;
-////        fooCls.[|clsSVar|]++;
-////        // References to a class parameter.
-////        this.[|clsParam|]++;
+////        globalVar++;
+////        this.clsVar++;
+////        fooCls.clsSVar++;
+////        this.cls/*7*/Param++;
 ////        modTest.modVar++;
 ////    }
 ////}
 ////
-////// References to a function parameter.
-////function [|foo|]([|x|]: number) {
-////    // References to a variable declared in a function.
-////    var [|fnVar|] = 1;
+////function foo(/*8*/x: number) {
+////    //Declare
+////    var fn/*6*/Var = 1;
 ////
 ////    //Increments
-////    fooCls.[|clsSVar|]++;
-////    [|globalVar|]++;
+////    fooCls.clsSVar++;
+////    globalVar++;
 ////    modTest.modVar++;
-////    [|fnVar|]++;
+////    fnVar++;
 ////
 ////    //Return
-////    return [|x|]++;
+////    return x++;
 ////}
 ////
 ////module modTest {
@@ -42,25 +38,25 @@
 ////    export var modVar:number;
 ////
 ////    //Increments
-////    [|globalVar|]++;
-////    fooCls.[|clsSVar|]++;
+////    globalVar++;
+////    fooCls.clsSVar++;
 ////    modVar++;
 ////
 ////    class testCls {
-////        static boo = [|foo|];
+////        static boo = foo;
 ////    }
 ////
 ////    function testFn(){
-////        static boo = [|foo|];
+////        static boo = foo;
 ////
 ////        //Increments
-////        [|globalVar|]++;
-////        fooCls.[|clsSVar|]++;
+////        globalVar++;
+////        fooCls.clsSVar++;
 ////        modVar++;
 ////    }
 ////
 ////    module testMod {
-////        var boo = [|foo|];
+////        var boo = foo;
 ////    }
 ////}
 ////
@@ -68,27 +64,24 @@
 ////var clsTest: fooCls;
 ////
 //////Arguments
-////// References to a class argument.
-////clsTest = new fooCls([|globalVar|]);
-////// References to a function argument.
-////[|foo|]([|globalVar|]);
+////clsTest = new fooCls(globalV/*10*/ar);
+////foo(glo/*9*/balVar);
 ////
 //////Increments
-////fooCls.[|clsSVar|]++;
+////fooCls.clsSVar++;
 ////modTest.modVar++;
-////[|globalVar|] = [|globalVar|] + [|globalVar|];
+////globalVar = globalVar + globalVar;
 ////
 //////ETC - Other cases
-////[|globalVar|] = 3;
-////// References to illegal assignment.
-////[|foo|] = [|foo|] + 1;
-/////*3*/err = err++;
-/////*4*/
+////globalVar = 3;
+/////*11*/foo = foo + 1;
+/////*12*/err = err++;
+/////*13*/
 //////Shadowed fn Parameter
-////function shdw([|{| "shadow": true |}globalVar|]: number) {
+////function shdw(globa/*14*/lVar: number) {
 ////    //Increments
-////    [|{| "shadow": true |}globalVar|]++;
-////    return [|{| "shadow": true |}globalVar|];
+////    globalVar++;
+////    return globalVar;
 ////}
 ////
 //////Remotes
@@ -117,12 +110,11 @@
 ////array.forEach(
 ////
 ////
-////function([|str|]) {
+////function(str) {
 ////
 ////
 ////
-////   // Reference misses function parameter.
-////   return [|str|] + " ";
+////   return /*15*/str + " ";
 ////
 ////});
 
@@ -170,7 +162,7 @@
 ////	class remotetestCls {
 ////		static remoteboo = remotefoo;
 ////	}
-////`
+////
 ////	function remotetestFn(){
 ////        static remoteboo = remotefoo;
 ////
@@ -187,31 +179,60 @@
 
 // References to comment.
 goTo.marker("1");
-verify.referencesAre([]);
+verify.referencesCountIs(0);
 
 // References to type.
 goTo.marker("2");
-verify.referencesAre([]);
+verify.referencesCountIs(0);
+
+// References to a variable declared in global.
+goTo.marker("3");
+verify.referencesCountIs(11);
+
+// References to a variable declared in a class.
+goTo.marker("4");
+verify.referencesCountIs(2);
+
+// References to static variable declared in a class.
+goTo.marker("5");
+verify.referencesCountIs(6);
+
+// References to a variable declared in a function.
+goTo.marker("6");
+verify.referencesCountIs(2);
+
+// References to a class parameter.
+goTo.marker("7");
+verify.referencesCountIs(2);
+
+// References to a function parameter.
+goTo.marker("8");
+verify.referencesCountIs(2);
+
+// References to a function argument.
+goTo.marker("9");
+verify.referencesCountIs(11);
+
+// References to a class argument.
+goTo.marker("10");
+verify.referencesCountIs(11);
+
+// References to illegal assignment.
+goTo.marker("11");
+verify.referencesCountIs(7);
 
 // References to unresolved symbol.
-goTo.marker("3");
-verify.referencesAre([]);
+goTo.marker("12");
+verify.referencesCountIs(0);
 
 // References to no context.
-goTo.marker("4");
-verify.referencesAre([]);
+goTo.marker("13");
+verify.referencesCountIs(0);
 
-const rangesByText = test.rangesByText();
-for (const text in rangesByText) {
-    const ranges = rangesByText[text];
-    if (text === "globalVar") {
-        verify.rangesReferenceEachOther(ranges.filter(isShadow));
-        verify.rangesReferenceEachOther(ranges.filter(r => !isShadow(r)));
-    } else {
-        verify.rangesReferenceEachOther(ranges);
-    }
-}
+// References to shadowed function parameter.
+goTo.marker("14");
+verify.referencesCountIs(3);
 
-function isShadow(r) {
-    return r.marker && r.marker.data && r.marker.data.shadow;
-}
+// Reference misses function parameter.
+goTo.marker("15");
+verify.referencesCountIs(2);

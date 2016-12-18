@@ -1,19 +1,14 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
         "noImplicitAny": true,
-        "noImplicitThis": true,
-        "removeComments": false,
+        "removeComments": true,
         "preserveConstEnums": true,
-        "pretty": true,
-        "outFile": "../../built/local/typescriptServices.js",
-        "sourceMap": true,
-        "stripInternal": true,
-        "noResolve": false,
-        "declaration": true
+        "out": "../../built/local/typescriptServices.js",
+        "sourceMap": true
     },
     "files": [
         "../compiler/core.ts",
-        "../compiler/performance.ts",
         "../compiler/sys.ts",
         "../compiler/types.ts",
         "../compiler/scanner.ts",
@@ -21,12 +16,11 @@
         "../compiler/utilities.ts",
         "../compiler/binder.ts",
         "../compiler/checker.ts",
-        "../compiler/sourcemap.ts",
-        "../compiler/declarationEmitter.ts",
         "../compiler/emitter.ts",
         "../compiler/program.ts",
-        "../compiler/commandLineParser.ts",
+        "../compiler/declarationEmitter.ts",
         "../compiler/diagnosticInformationMap.generated.ts",
+        "../compiler/commandLineParser.ts",
         "breakpoints.ts",
         "navigateTo.ts",
         "navigationBar.ts",

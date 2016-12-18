@@ -27,7 +27,7 @@ a6([1, 2, "string"]);                   // Error, parameter type is number[]
 
 var temp = [1, 2, 3];
 class C {
-    constructor(public ...temp) { }  // Error, rest parameter can't have properties
+    constructor(public ...temp) { }  // Error, rest parameter can't have accessibilityModifier
 }
 
 // Rest parameter with generic
@@ -83,13 +83,12 @@ a5([1, 2]); // Error, parameter type is [any, any, [[any]]]
 a6([1, 2, "string"]); // Error, parameter type is number[]
 var temp = [1, 2, 3];
 var C = (function () {
-    function C() {
+    function C(public) {
         var temp = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            temp[_i - 0] = arguments[_i];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            temp[_i - 1] = arguments[_i];
         }
-        this.temp = temp;
-    } // Error, rest parameter can't have properties
+    } // Error, rest parameter can't have accessibilityModifier
     return C;
 }());
 // Rest parameter with generic

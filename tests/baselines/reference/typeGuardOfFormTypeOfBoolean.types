@@ -48,7 +48,7 @@ if (typeof strOrBool === "boolean") {
 >typeof strOrBool === "boolean" : boolean
 >typeof strOrBool : string
 >strOrBool : string | boolean
->"boolean" : "boolean"
+>"boolean" : string
 
     bool = strOrBool; // boolean
 >bool = strOrBool : boolean
@@ -65,7 +65,7 @@ if (typeof numOrBool === "boolean") {
 >typeof numOrBool === "boolean" : boolean
 >typeof numOrBool : string
 >numOrBool : number | boolean
->"boolean" : "boolean"
+>"boolean" : string
 
     bool = numOrBool; // boolean
 >bool = numOrBool : boolean
@@ -82,7 +82,7 @@ if (typeof strOrNumOrBool === "boolean") {
 >typeof strOrNumOrBool === "boolean" : boolean
 >typeof strOrNumOrBool : string
 >strOrNumOrBool : string | number | boolean
->"boolean" : "boolean"
+>"boolean" : string
 
     bool = strOrNumOrBool; // boolean
 >bool = strOrNumOrBool : boolean
@@ -99,7 +99,7 @@ if (typeof boolOrC === "boolean") {
 >typeof boolOrC === "boolean" : boolean
 >typeof boolOrC : string
 >boolOrC : boolean | C
->"boolean" : "boolean"
+>"boolean" : string
 
     bool = boolOrC; // boolean
 >bool = boolOrC : boolean
@@ -113,18 +113,19 @@ else {
 >boolOrC : C
 }
 
+// Narrowing occurs only if target type is a subtype of variable type
 if (typeof strOrNum === "boolean") {
 >typeof strOrNum === "boolean" : boolean
 >typeof strOrNum : string
 >strOrNum : string | number
->"boolean" : "boolean"
+>"boolean" : string
 
-    let z1: {} = strOrNum; // {}
->z1 : {}
->strOrNum : never
+    var z1: string | number = strOrNum; // string | number
+>z1 : string | number
+>strOrNum : string | number
 }
 else {
-    let z2: string | number = strOrNum; // string | number
+    var z2: string | number = strOrNum; // string | number
 >z2 : string | number
 >strOrNum : string | number
 }
@@ -137,7 +138,7 @@ if (typeof strOrBool !== "boolean") {
 >typeof strOrBool !== "boolean" : boolean
 >typeof strOrBool : string
 >strOrBool : string | boolean
->"boolean" : "boolean"
+>"boolean" : string
 
     str = strOrBool; // string
 >str = strOrBool : string
@@ -154,7 +155,7 @@ if (typeof numOrBool !== "boolean") {
 >typeof numOrBool !== "boolean" : boolean
 >typeof numOrBool : string
 >numOrBool : number | boolean
->"boolean" : "boolean"
+>"boolean" : string
 
     num = numOrBool; // number
 >num = numOrBool : number
@@ -171,7 +172,7 @@ if (typeof strOrNumOrBool !== "boolean") {
 >typeof strOrNumOrBool !== "boolean" : boolean
 >typeof strOrNumOrBool : string
 >strOrNumOrBool : string | number | boolean
->"boolean" : "boolean"
+>"boolean" : string
 
     strOrNum = strOrNumOrBool; // string | number
 >strOrNum = strOrNumOrBool : string | number
@@ -188,7 +189,7 @@ if (typeof boolOrC !== "boolean") {
 >typeof boolOrC !== "boolean" : boolean
 >typeof boolOrC : string
 >boolOrC : boolean | C
->"boolean" : "boolean"
+>"boolean" : string
 
     c = boolOrC; // C
 >c = boolOrC : C
@@ -202,19 +203,20 @@ else {
 >boolOrC : boolean
 }
 
+// Narrowing occurs only if target type is a subtype of variable type
 if (typeof strOrNum !== "boolean") {
 >typeof strOrNum !== "boolean" : boolean
 >typeof strOrNum : string
 >strOrNum : string | number
->"boolean" : "boolean"
+>"boolean" : string
 
-    let z1: string | number = strOrNum; // string | number
+    var z1: string | number = strOrNum; // string | number
 >z1 : string | number
 >strOrNum : string | number
 }
 else {
-    let z2: {} = strOrNum; // {}
->z2 : {}
->strOrNum : never
+    var z2: string | number = strOrNum; // string | number
+>z2 : string | number
+>strOrNum : string | number
 }
 

@@ -8,7 +8,7 @@ class MyClass {
     }
 }
 
-//type of 'this' in an object literal method is the type of the object literal
+//type of 'this' in an object literal property of a function type is Any
 var obj = {
     f() {
         return this.spaaace;

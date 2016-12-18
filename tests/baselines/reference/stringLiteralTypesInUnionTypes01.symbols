@@ -3,14 +3,12 @@
 type T = "foo" | "bar" | "baz";
 >T : Symbol(T, Decl(stringLiteralTypesInUnionTypes01.ts, 0, 0))
 
-var x: "foo" | "bar" | "baz" = undefined;
+var x: "foo" | "bar" | "baz" = "foo";
 >x : Symbol(x, Decl(stringLiteralTypesInUnionTypes01.ts, 3, 3))
->undefined : Symbol(undefined)
 
-var y: T = undefined;
+var y: T = "bar";
 >y : Symbol(y, Decl(stringLiteralTypesInUnionTypes01.ts, 4, 3))
 >T : Symbol(T, Decl(stringLiteralTypesInUnionTypes01.ts, 0, 0))
->undefined : Symbol(undefined)
 
 if (x === "foo") {
 >x : Symbol(x, Decl(stringLiteralTypesInUnionTypes01.ts, 3, 3))

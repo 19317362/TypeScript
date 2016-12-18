@@ -17,8 +17,8 @@ class C extends Base {
 >foo : () => number
 
         var obj = {
->obj : { [x: number]: () => void; }
->{            [super.bar()]() { }        } : { [x: number]: () => void; }
+>obj : {}
+>{            [super.bar()]() { }        } : {}
 
             [super.bar()]() { }
 >super.bar() : number

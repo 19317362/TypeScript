@@ -6,6 +6,6 @@ var v = {
   * @type {number}
   */
  get bar(): number {
-  return 12;
+  return this._bar;
  }
 }

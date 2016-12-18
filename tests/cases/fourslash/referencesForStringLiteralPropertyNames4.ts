@@ -4,4 +4,5 @@
 ////x["[|someProperty|]"] = 3;
 ////x./*1*/[|someProperty|] = 5;
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+test.ranges().forEach(r => verify.referencesAtPositionContains(r));

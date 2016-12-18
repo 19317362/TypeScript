@@ -1,15 +1,31 @@
 /// <reference path="fourslash.ts" />
 
 //@Filename: a.ts
-////export class [|Class|] {
+////export class /*1*/Class{
 ////}
 
 //@Filename: b.ts
-////import { [|Class|] as [|C2|] } from "./a";
+////import { /*2*/Class as /*3*/C2} from "./a";
 ////
-////var c = new [|C2|]();
+////var c = new C2();
 
 //@Filename: c.ts
-////export { [|Class|] as [|C3|] } from "./a";
+////export { /*4*/Class as /*5*/C3 } from "./a";
 
-verify.rangesWithSameTextReferenceEachOther();
+goTo.file("a.ts");
+goTo.marker("1");
+verify.referencesCountIs(3);
+
+goTo.file("b.ts");
+goTo.marker("2");
+verify.referencesCountIs(3);
+
+goTo.marker("3");
+verify.referencesCountIs(2);
+
+goTo.file("c.ts");
+goTo.marker("4");
+verify.referencesCountIs(3);
+
+goTo.marker("5");
+verify.referencesCountIs(1);

@@ -1,7 +1,6 @@
 ﻿// @module: commonjs
 // @includebuiltfile: typescript_standalone.d.ts
-// @noImplicitAny:true
-// @strictNullChecks:true
+// @stripInternal:true
 
 /*
  * Note: This test is a public API sample. The sample sources can be found 

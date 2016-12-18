@@ -6,16 +6,16 @@ if (typeof stringOrNumber === "number") {
 >typeof stringOrNumber === "number" : boolean
 >typeof stringOrNumber : string
 >stringOrNumber : string | number
->"number" : "number"
+>"number" : string
 
     if (typeof stringOrNumber !== "number") {
 >typeof stringOrNumber !== "number" : boolean
 >typeof stringOrNumber : string
 >stringOrNumber : number
->"number" : "number"
+>"number" : string
 
         stringOrNumber;
->stringOrNumber : never
+>stringOrNumber : string | number
     }
 }
 
@@ -24,13 +24,13 @@ if (typeof stringOrNumber === "number" && typeof stringOrNumber !== "number") {
 >typeof stringOrNumber === "number" : boolean
 >typeof stringOrNumber : string
 >stringOrNumber : string | number
->"number" : "number"
+>"number" : string
 >typeof stringOrNumber !== "number" : boolean
 >typeof stringOrNumber : string
 >stringOrNumber : number
->"number" : "number"
+>"number" : string
 
     stringOrNumber;
->stringOrNumber : never
+>stringOrNumber : string | number
 }
 

@@ -7,10 +7,11 @@
 ////
 ////var y = new DefaultExportedClass;
 ////
-////namespace [|DefaultExportedClass|] {
+////namespace /**/DefaultExportedClass {
 ////}
 
 // The namespace and class do not merge,
 // so the namespace should be all alone.
 
-verify.rangesReferenceEachOther();
+goTo.marker();
+verify.referencesCountIs(1);

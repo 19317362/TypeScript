@@ -3,7 +3,7 @@
 type T = number | "foo" | "bar";
 
 var x: "foo" | "bar" | number;
-var y: T = undefined;
+var y: T = "bar";
 
 if (x === "foo") {
     let a = x;

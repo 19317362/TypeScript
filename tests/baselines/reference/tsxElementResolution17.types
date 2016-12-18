@@ -9,9 +9,8 @@ import s2 = require('elements2');
 
 <s1.MyElement />;
 ><s1.MyElement /> : JSX.Element
->s1.MyElement : typeof s1.MyElement
->s1 : typeof s1
->MyElement : typeof s1.MyElement
+>s1 : any
+>MyElement : any
 
 === tests/cases/conformance/jsx/file.tsx ===
 

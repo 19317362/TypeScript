@@ -1,6 +1,10 @@
 //// [overloadOnConstAsTypeAnnotation.ts]
 
-var f: (x: 'hi') => number = (x: 'hi') => { return 1; };
+var f: (x: 'hi') => number = ('hi') => { return 1; };
 
 //// [overloadOnConstAsTypeAnnotation.js]
-var f = function (x) { return 1; };
+var f = ('hi');
+{
+    return 1;
+}
+;

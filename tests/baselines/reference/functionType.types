@@ -4,9 +4,9 @@ function salt() {}
 
 salt.apply("hello", []);
 >salt.apply("hello", []) : any
->salt.apply : (this: Function, thisArg: any, argArray?: any) => any
+>salt.apply : (thisArg: any, argArray?: any) => any
 >salt : () => void
->apply : (this: Function, thisArg: any, argArray?: any) => any
+>apply : (thisArg: any, argArray?: any) => any
 >"hello" : string
 >[] : undefined[]
 

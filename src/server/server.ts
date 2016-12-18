@@ -1,59 +1,11 @@
-/// <reference types="node" />
+/// <reference path="node.d.ts" />
 /// <reference path="session.ts" />
 // used in fs.writeSync
-/* tslint:disable:no-null-keyword */
+/* tslint:disable:no-null */
 
 namespace ts.server {
-    interface ReadLineOptions {
-        input: NodeJS.ReadableStream;
-        output?: NodeJS.WritableStream;
-        terminal?: boolean;
-        historySize?: number;
-    }
-
-    interface Key {
-        sequence?: string;
-        name?: string;
-        ctrl?: boolean;
-        meta?: boolean;
-        shift?: boolean;
-    }
-
-    interface Stats {
-        isFile(): boolean;
-        isDirectory(): boolean;
-        isBlockDevice(): boolean;
-        isCharacterDevice(): boolean;
-        isSymbolicLink(): boolean;
-        isFIFO(): boolean;
-        isSocket(): boolean;
-        dev: number;
-        ino: number;
-        mode: number;
-        nlink: number;
-        uid: number;
-        gid: number;
-        rdev: number;
-        size: number;
-        blksize: number;
-        blocks: number;
-        atime: Date;
-        mtime: Date;
-        ctime: Date;
-        birthtime: Date;
-    }
-
-    const readline: {
-        createInterface(options: ReadLineOptions): NodeJS.EventEmitter;
-    } = require("readline");
-    const fs: {
-        openSync(path: string, options: string): number;
-        close(fd: number): void;
-        writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
-        writeSync(fd: number, data: any, position?: number, enconding?: string): number;
-        statSync(path: string): Stats;
-        stat(path: string, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    } = require("fs");
+    const readline: NodeJS.ReadLine = require("readline");
+    const fs: typeof NodeJS.fs = require("fs");
 
     const rl = readline.createInterface({
         input: process.stdin,
@@ -201,98 +153,6 @@ namespace ts.server {
     // This places log file in the directory containing editorServices.js
     // TODO: check that this location is writable
 
-    // average async stat takes about 30 microseconds
-    // set chunk size to do 30 files in < 1 millisecond
-    function createPollingWatchedFileSet(interval = 2500, chunkSize = 30) {
-        let watchedFiles: WatchedFile[] = [];
-        let nextFileToCheck = 0;
-        let watchTimer: any;
-
-        function getModifiedTime(fileName: string): Date {
-            return fs.statSync(fileName).mtime;
-        }
-
-        function poll(checkedIndex: number) {
-            const watchedFile = watchedFiles[checkedIndex];
-            if (!watchedFile) {
-                return;
-            }
-
-            fs.stat(watchedFile.fileName, (err: any, stats: any) => {
-                if (err) {
-                    watchedFile.callback(watchedFile.fileName);
-                }
-                else if (watchedFile.mtime.getTime() !== stats.mtime.getTime()) {
-                    watchedFile.mtime = getModifiedTime(watchedFile.fileName);
-                    watchedFile.callback(watchedFile.fileName, watchedFile.mtime.getTime() === 0);
-                }
-            });
-        }
-
-        // this implementation uses polling and
-        // stat due to inconsistencies of fs.watch
-        // and efficiency of stat on modern filesystems
-        function startWatchTimer() {
-            watchTimer = setInterval(() => {
-                let count = 0;
-                let nextToCheck = nextFileToCheck;
-                let firstCheck = -1;
-                while ((count < chunkSize) && (nextToCheck !== firstCheck)) {
-                    poll(nextToCheck);
-                    if (firstCheck < 0) {
-                        firstCheck = nextToCheck;
-                    }
-                    nextToCheck++;
-                    if (nextToCheck === watchedFiles.length) {
-                        nextToCheck = 0;
-                    }
-                    count++;
-                }
-                nextFileToCheck = nextToCheck;
-            }, interval);
-        }
-
-        function addFile(fileName: string, callback: FileWatcherCallback): WatchedFile {
-            const file: WatchedFile = {
-                fileName,
-                callback,
-                mtime: getModifiedTime(fileName)
-            };
-
-            watchedFiles.push(file);
-            if (watchedFiles.length === 1) {
-                startWatchTimer();
-            }
-            return file;
-        }
-
-        function removeFile(file: WatchedFile) {
-            watchedFiles = copyListRemovingItem(file, watchedFiles);
-        }
-
-        return {
-            getModifiedTime: getModifiedTime,
-            poll: poll,
-            startWatchTimer: startWatchTimer,
-            addFile: addFile,
-            removeFile: removeFile
-        };
-    }
-
-    // REVIEW: for now this implementation uses polling.
-    // The advantage of polling is that it works reliably
-    // on all os and with network mounted files.
-    // For 90 referenced files, the average time to detect
-    // changes is 2*msInterval (by default 5 seconds).
-    // The overhead of this is .04 percent (1/2500) with
-    // average pause of < 1 millisecond (and max
-    // pause less than 1.5 milliseconds); question is
-    // do we anticipate reference sets in the 100s and
-    // do we care about waiting 10-20 seconds to detect
-    // changes for large reference sets? If so, do we want
-    // to increase the chunk size or decrease the interval
-    // time dynamically to match the large reference set?
-    const pollingWatchedFileSet = createPollingWatchedFileSet();
     const logger = createLoggerFromEnv();
 
     const pending: string[] = [];
@@ -314,21 +174,10 @@ namespace ts.server {
         }
     }
 
-    const sys = <ServerHost>ts.sys;
-
     // Override sys.write because fs.writeSync is not reliable on Node 4
-    sys.write = (s: string) => writeMessage(s);
-    sys.watchFile = (fileName, callback) => {
-        const watchedFile = pollingWatchedFileSet.addFile(fileName, callback);
-        return {
-            close: () => pollingWatchedFileSet.removeFile(watchedFile)
-        };
-    };
+    ts.sys.write = (s: string) => writeMessage(s);
 
-    sys.setTimeout = setTimeout;
-    sys.clearTimeout = clearTimeout;
-
-    const ioSession = new IOSession(sys, logger);
+    const ioSession = new IOSession(ts.sys, logger);
     process.on("uncaughtException", function(err: Error) {
         ioSession.logError(err, "unknown");
     });

@@ -15,7 +15,7 @@ x = {
     0: t => t * t, // Should error
 };
 y = {
-    s: t => t * t, // Should error
+    s: t => t * t, // Should not error
 };
 y = {
     0: t => t * t, // Should error

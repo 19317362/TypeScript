@@ -26,6 +26,4 @@ var _a;
 
 
 //// [computedPropertyNamesDeclarationEmit5_ES5.d.ts]
-declare var v: {
-    [x: string]: any;
-};
+declare var v: {};

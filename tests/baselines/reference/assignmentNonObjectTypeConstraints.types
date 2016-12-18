@@ -19,14 +19,14 @@ function foo<T extends number>(x: T) {
 foo(5);
 >foo(5) : void
 >foo : <T extends number>(x: T) => void
->5 : 5
+>5 : number
 
 foo(E.A);
 >foo(E.A) : void
 >foo : <T extends number>(x: T) => void
->E.A : E.A
+>E.A : E
 >E : typeof E
->A : E.A
+>A : E
 
 class A { a }
 >A : A

@@ -2,10 +2,14 @@
 
 // References to a label outside function bounderies
 
-////[|label|]: function foo(label) {
+/////*1*/label: function foo(label) {
 ////    while (true) {
-////        break [|label|];
+////        break /*2*/label;
 ////    }
 ////}
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(2);
+
+goTo.marker("2");
+verify.referencesCountIs(2);

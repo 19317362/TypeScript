@@ -7,4 +7,13 @@
 ////     }
 //// }
 
-verify.rangesReferenceEachOther();
+const ranges = test.ranges();
+verify.assertHasRanges(ranges);
+for (const range of ranges) {
+    goTo.position(range.start);
+
+    verify.referencesCountIs(ranges.length);
+    for (const expectedRange of ranges) {
+        verify.referencesAtPositionContains(expectedRange);
+    }
+}

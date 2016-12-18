@@ -3,7 +3,7 @@
 // References to a unknown index property
 
 ////var a;
-////a[/**/"blah"];
+////a[/*1*/"blah"];
 
-goTo.marker("");
-verify.referencesAre([]);
+goTo.marker("1");
+verify.referencesCountIs(0);

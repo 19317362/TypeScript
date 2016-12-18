@@ -1,16 +1,19 @@
 /// <reference path="fourslash.ts" />
 
 // @Filename: a.ts
-////function [|decorator|](target) {
+////function decorator(target) {
 ////    return target;
 ////}
-////[|decorator|]();
+////decorator();
 
 // @Filename: b.ts
-////@[|decorator|] @[|decorator|]("again")
+////@deco/*1*/rator @decorator("again")
 ////class C {
-////    @[|decorator|]
+////    @decorator
 ////    method() {}
 ////}
 
-verify.rangesReferenceEachOther();
+goTo.file("b.ts");
+goTo.marker("1");
+
+verify.referencesCountIs(5);

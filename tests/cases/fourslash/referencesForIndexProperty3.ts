@@ -3,13 +3,17 @@
 // References to a property of the apparent type using string indexer
 
 ////interface Object {
-////    [|toMyString|]();
+////    toMyString();
 ////}
 ////
 ////var y: Object;
-////y.[|toMyString|]();
+////y./*1*/toMyString();
 ////
 ////var x = {};
-////x["[|toMyString|]"]();
+////x[/*2*/"toMyString"]();
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(3);
+
+goTo.marker("2");
+verify.referencesCountIs(3);

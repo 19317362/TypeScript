@@ -3,7 +3,13 @@
 /* @internal */
 namespace ts.formatting {
     export class RuleOperation {
-        constructor(public Context: RuleOperationContext, public Action: RuleAction) {}
+        public Context: RuleOperationContext;
+        public Action: RuleAction;
+
+        constructor() {
+            this.Context = null;
+            this.Action = null;
+        }
 
         public toString(): string {
             return "[context=" + this.Context + "," +
@@ -11,11 +17,14 @@ namespace ts.formatting {
         }
 
         static create1(action: RuleAction) {
-            return RuleOperation.create2(RuleOperationContext.Any, action);
+            return RuleOperation.create2(RuleOperationContext.Any, action)
         }
 
         static create2(context: RuleOperationContext, action: RuleAction) {
-            return new RuleOperation(context, action);
+            let result = new RuleOperation();
+            result.Context = context;
+            result.Action = action;
+            return result;
         }
     }
 }

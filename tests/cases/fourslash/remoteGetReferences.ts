@@ -86,19 +86,19 @@
 ////
 //////Remotes
 //////Type test
-////var remoteclsTest: [|remotefooCls|];
+////var remoteclsTest: rem/*2*/otefooCls;
 ////
 //////Arguments
-////remoteclsTest = new [|remotefooCls|]([|remoteglobalVar|]);
-////remotefoo([|remoteglobalVar|]);
+////remoteclsTest = new remotefooCls(remoteglo/*4*/balVar);
+////remotefoo(remotegl/*3*/obalVar);
 ////
 //////Increments
-////[|remotefooCls|].[|remoteclsSVar|]++;
+////remotefooCls.remoteclsSVar++;
 ////remotemodTest.remotemodVar++;
-////[|remoteglobalVar|] = [|remoteglobalVar|] + [|remoteglobalVar|];
+/////*1*/remoteglobalVar = remoteglobalVar + remoteglobalVar;
 ////
 //////ETC - Other cases
-////[|remoteglobalVar|] = 3;
+////remoteglobalVar = 3;
 ////
 //////Find References misses method param
 ////var
@@ -119,18 +119,18 @@
 ////});
 
 // @Filename: remoteGetReferences_2.ts
-////var [|remoteglobalVar|]: number = 2;
+////var remoteglobalVar: number = 2;
 ////
-////class [|remotefooCls|] {
+////class remotefooCls {
 ////	//Declare
-////	[|remoteclsVar|] = 1;
-////	static [|remoteclsSVar|] = 1;
+////	rem/*5*/oteclsVar = 1;
+////	static r/*6*/emoteclsSVar = 1;
 ////
 ////	constructor(public remoteclsParam: number) {
 ////		//Increments
-////		[|remoteglobalVar|]++;
-////		this.[|remoteclsVar|]++;
-////		[|remotefooCls|].[|remoteclsSVar|]++;
+////		remoteglobalVar++;
+////		this.remoteclsVar++;
+////		remotefooCls.remoteclsSVar++;
 ////		this.remoteclsParam++;
 ////		remotemodTest.remotemodVar++;
 ////	}
@@ -141,8 +141,8 @@
 ////	var remotefnVar = 1;
 ////
 ////	//Increments
-////	[|remotefooCls|].[|remoteclsSVar|]++;
-////	[|remoteglobalVar|]++;
+////	remotefooCls.remoteclsSVar++;
+////	remoteglobalVar++;
 ////	remotemodTest.remotemodVar++;
 ////	remotefnVar++;
 ////
@@ -155,8 +155,8 @@
 ////	export var remotemodVar: number;
 ////
 ////	//Increments
-////	[|remoteglobalVar|]++;
-////	[|remotefooCls|].[|remoteclsSVar|]++;
+////	remoteglobalVar++;
+////	remotefooCls.remoteclsSVar++;
 ////	remotemodVar++;
 ////
 ////	class remotetestCls {
@@ -167,8 +167,8 @@
 ////        static remoteboo = remotefoo;
 ////
 ////		//Increments
-////		[|remoteglobalVar|]++;
-////		[|remotefooCls|].[|remoteclsSVar|]++;
+////		remoteglobalVar++;
+////		remotefooCls.remoteclsSVar++;
 ////		remotemodVar++;
 ////    }
 ////
@@ -177,4 +177,26 @@
 ////	}
 ////}
 
-verify.rangesWithSameTextReferenceEachOther();
+// References to a variable declared in global.
+goTo.marker("1");
+verify.referencesCountIs(11);
+
+// References to a type.
+goTo.marker("2");
+verify.referencesCountIs(8);
+
+// References to a function argument.
+goTo.marker("3");
+verify.referencesCountIs(11);
+
+// References to a class argument.
+goTo.marker("4");
+verify.referencesCountIs(11);
+
+// References to a variable declared in a class.
+goTo.marker("5");
+verify.referencesCountIs(2);
+
+// References to static variable declared in a class.
+goTo.marker("6");
+verify.referencesCountIs(6);

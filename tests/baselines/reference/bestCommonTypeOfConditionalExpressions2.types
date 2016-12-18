@@ -29,8 +29,8 @@ var derived2: Derived2;
 >Derived2 : Derived2
 
 var r2 = true ? 1 : '';
->r2 : string | number
->true ? 1 : '' : string | number
+>r2 : number | string
+>true ? 1 : '' : number | string
 >true : boolean
 >1 : number
 >'' : string

@@ -20,10 +20,10 @@ var x = Colors.Cornflower;
 >Cornflower : Colors
 
 x = Colors.FancyPink;
->x = Colors.FancyPink : Colors.FancyPink
+>x = Colors.FancyPink : Colors
 >x : Colors
->Colors.FancyPink : Colors.FancyPink
+>Colors.FancyPink : Colors
 >Colors : typeof Colors
->FancyPink : Colors.FancyPink
+>FancyPink : Colors
 
 

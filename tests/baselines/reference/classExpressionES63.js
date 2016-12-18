@@ -13,14 +13,14 @@ let C = class extends class extends class {
     }
 }
  {
-    constructor() {
-        super(...arguments);
+    constructor(...args) {
+        super(...args);
         this.b = 2;
     }
 }
  {
-    constructor() {
-        super(...arguments);
+    constructor(...args) {
+        super(...args);
         this.c = 3;
     }
 }

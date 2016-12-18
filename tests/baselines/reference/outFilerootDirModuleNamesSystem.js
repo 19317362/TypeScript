@@ -37,8 +37,8 @@ System.register("a", ["b"], function(exports_2, context_2) {
                 b_1 = b_1_1;
             }],
         execute: function() {
-            Foo = class Foo {
-            };
+            class Foo {
+            }
             exports_2("default", Foo);
             b_1.default();
         }

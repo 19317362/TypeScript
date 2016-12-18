@@ -7,10 +7,4 @@ class C {
 
         debugger;
     }
-    get ["goodbye"]() {
->"goodbye" : string
-
-		return 0;
->0 : number
-    }
 }

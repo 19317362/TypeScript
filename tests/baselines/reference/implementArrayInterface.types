@@ -52,12 +52,13 @@ declare class MyArray<T> implements Array<T> {
 >end : number
 >T : T
 
-    sort(compareFn?: (a: T, b: T) => number): this;
->sort : (compareFn?: (a: T, b: T) => number) => this
+    sort(compareFn?: (a: T, b: T) => number): T[];
+>sort : (compareFn?: (a: T, b: T) => number) => T[]
 >compareFn : (a: T, b: T) => number
 >a : T
 >T : T
 >b : T
+>T : T
 >T : T
 
     splice(start: number): T[];

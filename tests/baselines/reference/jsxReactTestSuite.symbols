@@ -178,10 +178,10 @@ var x =
 >constructor : Symbol(unknown)
 
 <Namespace.Component />;
->Namespace : Symbol(Namespace, Decl(jsxReactTestSuite.tsx, 6, 11))
+>Component : Symbol(unknown)
 
 <Namespace.DeepNamespace.Component />;
->Namespace : Symbol(Namespace, Decl(jsxReactTestSuite.tsx, 6, 11))
+>Component : Symbol(unknown)
 
 <Component { ... x } y
 >Component : Symbol(Component, Decl(jsxReactTestSuite.tsx, 2, 11))

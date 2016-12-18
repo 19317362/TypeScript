@@ -1,73 +1,23 @@
 /// <reference path="fourslash.ts"/>
 
-////function foo() {
+////{| "itemName": "<global>", "kind": "module" |}
+////
+////{| "itemName": "foo", "kind": "function" |}function foo() {
 ////    var x = 10;
-////    function bar() {
+////    {| "itemName": "bar", "kind": "function", "parentName": "foo" |}function bar() {
 ////        var y = 10;
-////        function biz() {
+////        {| "itemName": "biz", "kind": "function", "parentName": "bar" |}function biz() {
 ////            var z = 10;
 ////        }
 ////    }
 ////}
 ////
-////function baz() {
+////{| "itemName": "baz", "kind": "function", "parentName": "<global>" |}function baz() {
 ////    var v = 10;
 ////}
 
-verify.navigationBar([
-    {
-        "text": "<global>",
-        "kind": "script",
-        "childItems": [
-            {
-                "text": "baz",
-                "kind": "function"
-            },
-            {
-                "text": "foo",
-                "kind": "function"
-            }
-        ]
-    },
-    {
-        "text": "baz",
-        "kind": "function",
-        "childItems": [
-            {
-                "text": "v",
-                "kind": "var"
-            }
-        ],
-        "indent": 1
-    },
-    {
-        "text": "foo",
-        "kind": "function",
-        "childItems": [
-            {
-                "text": "bar",
-                "kind": "function"
-            },
-            {
-                "text": "x",
-                "kind": "var"
-            }
-        ],
-        "indent": 1
-    },
-    {
-        "text": "bar",
-        "kind": "function",
-        "childItems": [
-            {
-                "text": "biz",
-                "kind": "function"
-            },
-            {
-                "text": "y",
-                "kind": "var"
-            }
-        ],
-        "indent": 2
-    }
-]);
+test.markers().forEach((marker) => {
+    verify.getScriptLexicalStructureListContains(marker.data.itemName, marker.data.kind, marker.fileName, marker.data.parentName);
+});
+
+verify.getScriptLexicalStructureListCount(8); // 4 functions + global.  Note: there are 8 because of the functions show up at the top level and as child items.

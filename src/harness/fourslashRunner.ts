@@ -1,6 +1,7 @@
 ///<reference path="fourslash.ts" />
 ///<reference path="harness.ts"/>
 ///<reference path="runnerbase.ts" />
+/* tslint:disable:no-null */
 
 const enum FourSlashTestType {
     Native,
@@ -11,7 +12,7 @@ const enum FourSlashTestType {
 
 class FourSlashRunner extends RunnerBase {
     protected basePath: string;
-    protected testSuiteName: TestRunnerKind;
+    protected testSuiteName: string;
 
     constructor(private testType: FourSlashTestType) {
         super();
@@ -35,17 +36,9 @@ class FourSlashRunner extends RunnerBase {
         }
     }
 
-    public enumerateTestFiles() {
-        return this.enumerateFiles(this.basePath, /\.ts/i, { recursive: false });
-    }
-
-    public kind() {
-        return this.testSuiteName;
-    }
-
     public initializeTests() {
         if (this.tests.length === 0) {
-            this.tests = this.enumerateTestFiles();
+            this.tests = this.enumerateFiles(this.basePath, /\.ts/i, { recursive: false });
         }
 
         describe(this.testSuiteName + " tests", () => {

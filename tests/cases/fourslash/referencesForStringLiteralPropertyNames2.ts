@@ -1,10 +1,15 @@
 /// <reference path='fourslash.ts'/>
 
 ////class Foo {
-////    "[|blah|]"() { return 0; }
+////    /*1*/"blah"() { return 0; }
 ////}
 ////
 ////var x: Foo;
-////x.[|blah|];
+////x./*2*/blah;
 
-verify.rangesReferenceEachOther();
+
+goTo.marker("1");
+verify.referencesCountIs(2);
+
+goTo.marker("2");
+verify.referencesCountIs(2);

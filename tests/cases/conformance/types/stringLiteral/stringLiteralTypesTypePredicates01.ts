@@ -8,7 +8,7 @@ function kindIs(kind: Kind, is: Kind): boolean {
     return kind === is;
 }
 
-var x: Kind = undefined;
+var x: Kind = "A";
 
 if (kindIs(x, "A")) {
     let a = x;

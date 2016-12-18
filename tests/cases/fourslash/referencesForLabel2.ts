@@ -4,9 +4,9 @@
 
 ////var label = "label";
 ////while (true) {
-////    if (false) break /**/label;
+////    if (false) break /*1*/label;
 ////    if (true) continue label;
 ////}
 
-goTo.marker();
-verify.referencesAre([]);
+goTo.marker("1");
+verify.referencesCountIs(0);

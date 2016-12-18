@@ -10,7 +10,7 @@ namespace ts.JsTyping {
         directoryExists: (path: string) => boolean;
         fileExists: (fileName: string) => boolean;
         readFile: (path: string, encoding?: string) => string;
-        readDirectory: (rootDir: string, extensions: string[], excludes: string[], includes: string[], depth?: number) => string[];
+        readDirectory: (path: string, extension?: string, exclude?: string[], depth?: number) => string[];
     };
 
     interface PackageJson {
@@ -47,7 +47,7 @@ namespace ts.JsTyping {
         { cachedTypingPaths: string[], newTypingNames: string[], filesToWatch: string[] } {
 
         // A typing name to typing file path mapping
-        const inferredTypings = createMap<string>();
+        const inferredTypings: Map<string> = {};
 
         if (!typingOptions || !typingOptions.enableAutoDiscovery) {
             return { cachedTypingPaths: [], newTypingNames: [], filesToWatch: [] };
@@ -58,7 +58,12 @@ namespace ts.JsTyping {
 
         if (!safeList) {
             const result = readConfigFile(safeListPath, (path: string) => host.readFile(path));
-            safeList = createMap<string>(result.config);
+            if (result.config) {
+                safeList = result.config;
+            }
+            else {
+                safeList = {};
+            }
         }
 
         const filesToWatch: string[] = [];
@@ -88,7 +93,7 @@ namespace ts.JsTyping {
 
         // Add the cached typing locations for inferred typings that are already installed
         for (const name in packageNameToTypingLocation) {
-            if (name in inferredTypings && !inferredTypings[name]) {
+            if (hasProperty(inferredTypings, name) && !inferredTypings[name]) {
                 inferredTypings[name] = packageNameToTypingLocation[name];
             }
         }
@@ -119,7 +124,7 @@ namespace ts.JsTyping {
             }
 
             for (const typing of typingNames) {
-                if (!(typing in inferredTypings)) {
+                if (!hasProperty(inferredTypings, typing)) {
                     inferredTypings[typing] = undefined;
                 }
             }
@@ -134,16 +139,16 @@ namespace ts.JsTyping {
                 const jsonConfig: PackageJson = result.config;
                 filesToWatch.push(jsonPath);
                 if (jsonConfig.dependencies) {
-                    mergeTypings(getOwnKeys(jsonConfig.dependencies));
+                    mergeTypings(getKeys(jsonConfig.dependencies));
                 }
                 if (jsonConfig.devDependencies) {
-                    mergeTypings(getOwnKeys(jsonConfig.devDependencies));
+                    mergeTypings(getKeys(jsonConfig.devDependencies));
                 }
                 if (jsonConfig.optionalDependencies) {
-                    mergeTypings(getOwnKeys(jsonConfig.optionalDependencies));
+                    mergeTypings(getKeys(jsonConfig.optionalDependencies));
                 }
                 if (jsonConfig.peerDependencies) {
-                    mergeTypings(getOwnKeys(jsonConfig.peerDependencies));
+                    mergeTypings(getKeys(jsonConfig.peerDependencies));
                 }
             }
         }
@@ -162,7 +167,7 @@ namespace ts.JsTyping {
                 mergeTypings(cleanedTypingNames);
             }
             else {
-                mergeTypings(filter(cleanedTypingNames, f => f in safeList));
+                mergeTypings(filter(cleanedTypingNames, f => hasProperty(safeList, f)));
             }
 
             const hasJsxFile = forEach(fileNames, f => scriptKindIs(f, /*LanguageServiceHost*/ undefined, ScriptKind.JSX));
@@ -182,7 +187,7 @@ namespace ts.JsTyping {
             }
 
             const typingNames: string[] = [];
-            const fileNames = host.readDirectory(nodeModulesPath, ["*.json"], /*excludes*/ undefined, /*includes*/ undefined, /*depth*/ 2);
+            const fileNames = host.readDirectory(nodeModulesPath, "*.json", /*exclude*/ undefined, /*depth*/ 2);
             for (const fileName of fileNames) {
                 const normalizedFileName = normalizePath(fileName);
                 if (getBaseFileName(normalizedFileName) !== "package.json") {

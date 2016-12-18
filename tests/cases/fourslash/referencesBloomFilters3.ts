@@ -4,9 +4,13 @@
 
 
 // @Filename: declaration.ts
-////enum Test { "[|42|]" = 1 };
+////enum Test { /*1*/"42" = 1 };
 
 // @Filename: expression.ts
-////(Test[[|42|]]);
+////(Test[/*2*/42]);
 
-verify.rangesReferenceEachOther();
+
+test.markers().forEach(m => {
+    goTo.position(m.position, m.fileName);
+    verify.referencesCountIs(2);
+});

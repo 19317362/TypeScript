@@ -3,11 +3,15 @@
 // Global module reference.
 
 // @Filename: referencesForGlobals_1.ts
-////module [|globalModule|] {
+////module /*2*/globalModule {
 ////     export f() { };
 ////}
 
 // @Filename: referencesForGlobals_2.ts
-////var m = [|globalModule|];
+////var m = /*1*/globalModule;
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(2);
+
+goTo.marker("2");
+verify.referencesCountIs(2);

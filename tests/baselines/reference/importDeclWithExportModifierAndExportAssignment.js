@@ -8,4 +8,3 @@ export = x;
 
 //// [importDeclWithExportModifierAndExportAssignment.js]
 "use strict";
-exports.a = x.c;

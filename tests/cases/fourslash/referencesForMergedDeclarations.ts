@@ -1,20 +1,21 @@
 /// <reference path='fourslash.ts'/>
 
-////interface [|Foo|] {
+////interface /*type1*/Foo {
 ////}
 ////
-////module [|Foo|] {
+////module /*namespace1*/Foo {
 ////    export interface Bar { }
 ////}
 ////
-////function [|Foo|](): void {
+////function /*value1*/Foo(): void {
 ////}
 ////
-////var f1: [|Foo|].Bar;
-////var f2: [|Foo|];
-////[|Foo|].bind(this);
+////var f1: /*namespace2*/Foo.Bar;
+////var f2: /*type2*/Foo;
+/////*value2*/Foo.bind(this);
 
-const [type1, namespace1, value1, namespace2, type2, value2] = test.ranges();
-verify.rangesReferenceEachOther([type1, type2]);
-verify.rangesReferenceEachOther([namespace1, namespace2]);
-verify.rangesReferenceEachOther([value1, value2]);
+
+test.markers().forEach(m => {
+    goTo.position(m.position, m.fileName);
+    verify.referencesCountIs(2);
+});

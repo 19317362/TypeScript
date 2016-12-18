@@ -3,12 +3,16 @@
 // References a class property using string index access
 
 ////class Foo {
-////    [|property|]: number;
-////    [|method|](): void { }
+////    property: number;
+////    method(): void { }
 ////}
 ////
 ////var f: Foo;
-////f["[|property|]"];
-////f["[|method|]"];
+////f[/*1*/"property"];
+////f[/*2*/"method"];
 
-verify.rangesWithSameTextReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(2);
+
+goTo.marker("2");
+verify.referencesCountIs(2);

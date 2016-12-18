@@ -1,16 +1,22 @@
 /// <reference path='fourslash.ts'/>
 
-//// var [|dx|] = "Foo";
+//// var /*1*/dx = "Foo";
 ////
-//// module M { export var [|dx|]; }
+//// module M { export var /*2*/dx; }
 //// module M {
 ////    var z = 100;
-////    export var y = { [|dx|], z };
+////    export var y = { /*3*/dx, z };
 //// }
-//// M.y.[|dx|];
+//// M.y./*4*/dx;
 
-const [r0, r1, r2, r3] = test.ranges();
-verify.referencesOf(r0, [r0]);
-verify.referencesOf(r1, [r1, r2]);
-verify.referencesOf(r2, [r1, r2, r3]);
-verify.referencesOf(r3, [r2, r3]);
+goTo.marker('1');
+verify.referencesCountIs(1);
+
+goTo.marker('2');
+verify.referencesCountIs(2);
+
+goTo.marker('3');
+verify.referencesCountIs(3);
+
+goTo.marker('4');
+verify.referencesCountIs(2);

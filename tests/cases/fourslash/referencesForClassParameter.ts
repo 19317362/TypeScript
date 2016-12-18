@@ -7,16 +7,20 @@
 ////class p { }
 ////
 ////class foo {
-////    constructor (public [|p|]: any) {
+////    constructor (public p: any) {
 ////    }
 ////
 ////    public f(p) {
-////        this.[|p|] = p;
+////        this./*1*/p = p;
 ////    }
 ////
 ////}
 ////
 ////var n = new foo(undefined);
-////n.[|p|] = null;
+////n./*2*/p = null;
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(3);
+
+goTo.marker("2");
+verify.referencesCountIs(3);

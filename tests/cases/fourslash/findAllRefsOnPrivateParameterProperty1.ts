@@ -9,4 +9,10 @@
 ////    }
 ////}
 
-verify.rangesReferenceEachOther();
+test.ranges().forEach(r => {
+    goTo.position(r.start);
+
+    test.ranges().forEach(range => {
+        verify.referencesAtPositionContains(range);
+    });
+});

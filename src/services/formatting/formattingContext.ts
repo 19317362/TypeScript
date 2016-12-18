@@ -57,8 +57,8 @@ namespace ts.formatting {
 
         public TokensAreOnSameLine(): boolean {
             if (this.tokensAreOnSameLine === undefined) {
-                const startLine = this.sourceFile.getLineAndCharacterOfPosition(this.currentTokenSpan.pos).line;
-                const endLine = this.sourceFile.getLineAndCharacterOfPosition(this.nextTokenSpan.pos).line;
+                let startLine = this.sourceFile.getLineAndCharacterOfPosition(this.currentTokenSpan.pos).line;
+                let endLine = this.sourceFile.getLineAndCharacterOfPosition(this.nextTokenSpan.pos).line;
                 this.tokensAreOnSameLine = (startLine === endLine);
             }
 
@@ -82,17 +82,17 @@ namespace ts.formatting {
         }
 
         private NodeIsOnOneLine(node: Node): boolean {
-            const startLine = this.sourceFile.getLineAndCharacterOfPosition(node.getStart(this.sourceFile)).line;
-            const endLine = this.sourceFile.getLineAndCharacterOfPosition(node.getEnd()).line;
+            let startLine = this.sourceFile.getLineAndCharacterOfPosition(node.getStart(this.sourceFile)).line;
+            let endLine = this.sourceFile.getLineAndCharacterOfPosition(node.getEnd()).line;
             return startLine === endLine;
         }
 
         private BlockIsOnOneLine(node: Node): boolean {
-            const openBrace = findChildOfKind(node, SyntaxKind.OpenBraceToken, this.sourceFile);
-            const closeBrace = findChildOfKind(node, SyntaxKind.CloseBraceToken, this.sourceFile);
+            let openBrace = findChildOfKind(node, SyntaxKind.OpenBraceToken, this.sourceFile);
+            let closeBrace = findChildOfKind(node, SyntaxKind.CloseBraceToken, this.sourceFile);
             if (openBrace && closeBrace) {
-                const startLine = this.sourceFile.getLineAndCharacterOfPosition(openBrace.getEnd()).line;
-                const endLine = this.sourceFile.getLineAndCharacterOfPosition(closeBrace.getStart(this.sourceFile)).line;
+                let startLine = this.sourceFile.getLineAndCharacterOfPosition(openBrace.getEnd()).line;
+                let endLine = this.sourceFile.getLineAndCharacterOfPosition(closeBrace.getStart(this.sourceFile)).line;
                 return startLine === endLine;
             }
             return false;

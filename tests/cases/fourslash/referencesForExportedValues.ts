@@ -1,13 +1,16 @@
 /// <reference path='fourslash.ts'/>
 
 ////module M {
-////    export var [|variable|] = 0;
+////    export var /*1*/variable = 0;
 ////
 ////    // local use
-////    var x = [|variable|];
+////    var x = /*2*/variable;
 ////}
 ////
 ////// external use
-////M.[|variable|]
+////M./*3*/variable
 
-verify.rangesReferenceEachOther();
+test.markers().forEach((m) => {
+    goTo.position(m.position, m.fileName);
+    verify.referencesCountIs(3);
+});

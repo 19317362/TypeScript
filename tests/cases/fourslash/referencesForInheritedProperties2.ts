@@ -3,18 +3,18 @@
 // extends statement in a diffrent declaration
 
 ////interface interface1 {
-////    [|doStuff|](): void;
+////    /*1*/doStuff(): void;
 ////}
 ////
 ////interface interface2 {
-////    [|doStuff|](): void;
+////    /*2*/doStuff(): void;
 ////}
 ////
 ////interface interface2 extends interface1 {
 ////}
 ////
 ////class class1 implements interface2 {
-////    [|doStuff|]() {
+////    /*3*/doStuff() {
 ////
 ////    }
 ////}
@@ -24,6 +24,9 @@
 ////}
 ////
 ////var v: class2;
-////v.[|doStuff|]();
+////v./*4*/doStuff();
 
-verify.rangesReferenceEachOther();
+test.markers().forEach(m=> {
+    goTo.position(m.position, m.fileName);
+    verify.referencesCountIs(4);
+});

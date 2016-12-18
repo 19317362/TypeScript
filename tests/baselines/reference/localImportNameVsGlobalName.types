@@ -26,21 +26,21 @@ module App {
   foo(Key.UP);
 >foo(Key.UP) : void
 >foo : (key: Key) => void
->Key.UP : Key.UP
+>Key.UP : Key
 >Key : typeof Key
->UP : Key.UP
+>UP : Key
 
   foo(Key.DOWN);
 >foo(Key.DOWN) : void
 >foo : (key: Key) => void
->Key.DOWN : Key.DOWN
+>Key.DOWN : Key
 >Key : typeof Key
->DOWN : Key.DOWN
+>DOWN : Key
 
   foo(Key.LEFT);
 >foo(Key.LEFT) : void
 >foo : (key: Key) => void
->Key.LEFT : Key.LEFT
+>Key.LEFT : Key
 >Key : typeof Key
->LEFT : Key.LEFT
+>LEFT : Key
 }

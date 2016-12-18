@@ -1,16 +1,27 @@
 ﻿/// <reference path='fourslash.ts'/>
 
 //// interface C extends D {
-////     [|propD|]: number;
+////     /*0*/propD: number;
 //// }
 //// interface D extends C {
-////     [|propD|]: string;
-////     [|propC|]: number;
+////     /*1*/propD: string;
+////     /*3*/propC: number;
 //// }
 //// var d: D;
-//// d.[|propD|];
-//// d.[|propC|];
+//// d./*2*/propD;
+//// d./*4*/propC;
 
-const [d0, d1, c0, d2, c1] = test.ranges();
-verify.rangesReferenceEachOther([d0, d1, d2]);
-verify.rangesReferenceEachOther([c0, c1]);
+goTo.marker("0");
+verify.referencesCountIs(3);
+
+goTo.marker("1");
+verify.referencesCountIs(3);
+
+goTo.marker("2");
+verify.referencesCountIs(3);
+
+goTo.marker("3");
+verify.referencesCountIs(2);
+
+goTo.marker("4");
+verify.referencesCountIs(2);

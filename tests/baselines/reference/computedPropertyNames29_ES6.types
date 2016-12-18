@@ -9,8 +9,8 @@ class C {
 >() => {            var obj = {                [this.bar()]() { } // needs capture            };        } : () => void
 
             var obj = {
->obj : { [x: number]: () => void; }
->{                [this.bar()]() { } // needs capture            } : { [x: number]: () => void; }
+>obj : {}
+>{                [this.bar()]() { } // needs capture            } : {}
 
                 [this.bar()]() { } // needs capture
 >this.bar() : number

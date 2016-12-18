@@ -3,11 +3,15 @@
 // Global interface reference.
 
 // @Filename: referencesForGlobals_1.ts
-////interface [|globalInterface|] {
+////interface /*2*/globalInterface {
 ////     f();
 ////}
 
 // @Filename: referencesForGlobals_2.ts
-////var i: [|globalInterface|];
+////var i: /*1*/globalInterface;
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(2);
+
+goTo.marker("2");
+verify.referencesCountIs(2);

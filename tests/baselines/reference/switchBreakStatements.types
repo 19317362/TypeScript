@@ -4,7 +4,7 @@ switch ('') {
 >'' : string
 
     case 'a':
->'a' : "a"
+>'a' : string
 
         break;
 }
@@ -16,7 +16,7 @@ switch ('') {
 >'' : string
 
     case 'a':
->'a' : "a"
+>'a' : string
 
         break ONE;
 >ONE : any
@@ -32,7 +32,7 @@ switch ('') {
 >'' : string
 
     case 'a':
->'a' : "a"
+>'a' : string
 
         break THREE;
 >THREE : any
@@ -45,7 +45,7 @@ switch ('') {
 >'' : string
 
     case 'a':
->'a' : "a"
+>'a' : string
 
         FIVE:
 >FIVE : any
@@ -54,7 +54,7 @@ switch ('') {
 >'' : string
 
             case 'a':
->'a' : "a"
+>'a' : string
 
                 break FOUR;
 >FOUR : any
@@ -65,7 +65,7 @@ switch ('') {
 >'' : string
 
     case 'a':
->'a' : "a"
+>'a' : string
 
         SIX:
 >SIX : any
@@ -74,7 +74,7 @@ switch ('') {
 >'' : string
 
             case 'a':
->'a' : "a"
+>'a' : string
 
                 break SIX;
 >SIX : any
@@ -88,19 +88,19 @@ switch ('') {
 >'' : string
 
     case 'a':
->'a' : "a"
+>'a' : string
 
         switch ('') {
 >'' : string
 
             case 'a':
->'a' : "a"
+>'a' : string
 
                 switch ('') {
 >'' : string
 
                     case 'a':
->'a' : "a"
+>'a' : string
 
                         break SEVEN;
 >SEVEN : any
@@ -112,7 +112,7 @@ switch ('') {
 >'' : string
 
                             case 'a':
->'a' : "a"
+>'a' : string
 
                                 var fn = function () { }
 >fn : () => void

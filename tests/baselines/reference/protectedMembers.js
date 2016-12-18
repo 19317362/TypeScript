@@ -83,6 +83,7 @@ interface E extends C {
 }
 
 class CC {
+    // Error, constructor cannot be protected
     protected constructor() {
     }
 }
@@ -213,6 +214,7 @@ var D = (function (_super) {
     return D;
 }(C));
 var CC = (function () {
+    // Error, constructor cannot be protected
     function CC() {
     }
     return CC;

@@ -2,8 +2,8 @@ class C {
     constructor(public x?) { }
 }
 
-// x should be an optional property
-var v: C = {}; // Should succeed
+// x should not be an optional property
+var v: C = {}; // Should fail
 var v2: { x? }
-v = v2; // Should succeed
-var v3: { x } = new C; // Should fail
+v = v2; // Should fail
+var v3: { x } = new C; // Should succeed

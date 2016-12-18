@@ -3,11 +3,12 @@
 ////interface Foo { }
 ////module Foo {
 ////    export interface Bar { }
-////    export module [|Bar|] { export interface Baz { } }
+////    export module Bar { export interface Baz { } }
 ////    export function Bar() { }
 ////}
 ////
 ////// module
-////import a3 = Foo.[|Bar|].Baz;
+////import a3 = Foo./*1*/Bar.Baz;
 
-verify.rangesReferenceEachOther();
+goTo.marker("1");
+verify.referencesCountIs(2);

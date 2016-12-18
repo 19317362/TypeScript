@@ -1,11 +1,8 @@
 //// [contextuallyTypedStringLiteralsInJsxAttributes01.tsx]
 
 namespace JSX {
-    export interface IntrinsicElements {
+    interface IntrinsicElements {
         span: {};
-    }
-    export interface Element {
-		something?: any;
     }
 }
 
@@ -27,13 +24,7 @@ var FooComponent = function (props) { return <span>{props.foo}</span>; };
 
 //// [contextuallyTypedStringLiteralsInJsxAttributes01.d.ts]
 declare namespace JSX {
-    interface IntrinsicElements {
-        span: {};
-    }
-    interface Element {
-        something?: any;
-    }
 }
 declare const FooComponent: (props: {
     foo: "A" | "B" | "C";
-}) => JSX.Element;
+}) => any;

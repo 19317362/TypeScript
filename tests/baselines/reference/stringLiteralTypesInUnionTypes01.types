@@ -3,39 +3,39 @@
 type T = "foo" | "bar" | "baz";
 >T : "foo" | "bar" | "baz"
 
-var x: "foo" | "bar" | "baz" = undefined;
+var x: "foo" | "bar" | "baz" = "foo";
 >x : "foo" | "bar" | "baz"
->undefined : undefined
+>"foo" : "foo"
 
-var y: T = undefined;
+var y: T = "bar";
 >y : "foo" | "bar" | "baz"
 >T : "foo" | "bar" | "baz"
->undefined : undefined
+>"bar" : "bar"
 
 if (x === "foo") {
 >x === "foo" : boolean
 >x : "foo" | "bar" | "baz"
->"foo" : "foo"
+>"foo" : string
 
     let a = x;
->a : "foo"
->x : "foo"
+>a : "foo" | "bar" | "baz"
+>x : "foo" | "bar" | "baz"
 }
 else if (x !== "bar") {
 >x !== "bar" : boolean
->x : "bar" | "baz"
->"bar" : "bar"
+>x : "foo" | "bar" | "baz"
+>"bar" : string
 
     let b = x || y;
 >b : "foo" | "bar" | "baz"
 >x || y : "foo" | "bar" | "baz"
->x : "baz"
+>x : "foo" | "bar" | "baz"
 >y : "foo" | "bar" | "baz"
 }
 else {
     let c = x;
->c : "bar"
->x : "bar"
+>c : "foo" | "bar" | "baz"
+>x : "foo" | "bar" | "baz"
 
     let d = y;
 >d : "foo" | "bar" | "baz"
@@ -43,10 +43,10 @@ else {
 
     let e: (typeof x) | (typeof y) = c || d;
 >e : "foo" | "bar" | "baz"
->x : "bar"
+>x : "foo" | "bar" | "baz"
 >y : "foo" | "bar" | "baz"
 >c || d : "foo" | "bar" | "baz"
->c : "bar"
+>c : "foo" | "bar" | "baz"
 >d : "foo" | "bar" | "baz"
 }
 

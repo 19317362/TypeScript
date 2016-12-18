@@ -60,11 +60,12 @@ var a: {
 >x : number
 >Base : Base
 }
-var b: { [x: number]: Derived; } = { 0: <Derived>null };
+var b: { [x: number]: Derived; } = { foo: <Derived>null };
 >b : { [x: number]: Derived; }
 >x : number
 >Derived : Derived
->{ 0: <Derived>null } : { 0: Derived; }
+>{ foo: <Derived>null } : { [x: number]: undefined; foo: Derived; }
+>foo : Derived
 ><Derived>null : Derived
 >Derived : Derived
 >null : null

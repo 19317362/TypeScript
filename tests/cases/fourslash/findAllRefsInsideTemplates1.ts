@@ -3,4 +3,10 @@
 ////var [|x|] = 10;
 ////var y = `${ [|x|] } ${ [|x|] }`
 
-verify.rangesReferenceEachOther();
+test.ranges().forEach(targetRange => {
+    goTo.position(targetRange.start);
+
+    test.ranges().forEach(range => {
+        verify.referencesAtPositionContains(range);
+    });
+});

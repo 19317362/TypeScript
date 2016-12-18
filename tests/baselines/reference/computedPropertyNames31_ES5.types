@@ -20,8 +20,8 @@ class C extends Base {
 >() => {            var obj = {                [super.bar()]() { } // needs capture            };        } : () => void
 
             var obj = {
->obj : { [x: number]: () => void; }
->{                [super.bar()]() { } // needs capture            } : { [x: number]: () => void; }
+>obj : {}
+>{                [super.bar()]() { } // needs capture            } : {}
 
                 [super.bar()]() { } // needs capture
 >super.bar() : number

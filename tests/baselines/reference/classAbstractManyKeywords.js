@@ -6,8 +6,6 @@ import abstract class D {}
 
 //// [classAbstractManyKeywords.js]
 "use strict";
-exports.__esModule = true;
-exports["default"] = abstract;
 var A = (function () {
     function A() {
     }
@@ -24,7 +22,6 @@ var C = (function () {
     }
     return C;
 }());
-var abstract = ;
 var D = (function () {
     function D() {
     }

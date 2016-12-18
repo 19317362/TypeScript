@@ -1,32 +1,11 @@
 /// <reference path="fourslash.ts"/>
 
-////export class Bar {
-////    public s: string;
+////{| "itemName": "Bar", "kind": "class" |}export class Bar {
+////    {| "itemName": "s", "kind": "property", "parentName": "Bar" |}public s: string;
 ////}
 
-verify.navigationBar([
-    {
-        "text": "\"navigationBarItemsItemsExternalModules\"",
-        "kind": "module",
-        "childItems": [
-            {
-                "text": "Bar",
-                "kind": "class",
-                "kindModifiers": "export"
-            }
-        ]
-    },
-    {
-        "text": "Bar",
-        "kind": "class",
-        "kindModifiers": "export",
-        "childItems": [
-            {
-                "text": "s",
-                "kind": "property",
-                "kindModifiers": "public"
-            }
-        ],
-        "indent": 1
-    }
-]);
+test.markers().forEach((marker) => {
+    verify.getScriptLexicalStructureListContains(marker.data.itemName, marker.data.kind, marker.fileName, marker.data.parentName);
+});
+
+verify.getScriptLexicalStructureListCount(2); // external module node + class + property

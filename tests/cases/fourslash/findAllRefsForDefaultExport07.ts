@@ -8,9 +8,11 @@
 ////
 ////var y = DefaultExportedFunction();
 ////
-////namespace [|DefaultExportedFunction|] {
+////namespace /**/DefaultExportedFunction {
 ////}
 
 // The namespace and function do not merge,
 // so the namespace should be all alone.
-verify.rangesReferenceEachOther();
+
+goTo.marker();
+verify.referencesCountIs(1);

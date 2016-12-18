@@ -26,7 +26,7 @@ for (let x = 1, y = 2; x < y; ++x, --y) {
     if (x == 1) {
 >x == 1 : boolean
 >x : number
->1 : 1
+>1 : number
 
         break;
     }
@@ -96,7 +96,7 @@ for (let x = 1, y = 2; x < y; ++x, --y) {
     if (x == 1) {
 >x == 1 : boolean
 >x : number
->1 : 1
+>1 : number
 
         continue;
     }
@@ -168,7 +168,7 @@ for (let x = 1, y = 2; x < y; ++x, --y) {
     if (x == 1) {
 >x == 1 : boolean
 >x : number
->1 : 1
+>1 : number
 
         break loop2;
 >loop2 : any
@@ -248,7 +248,7 @@ for (let x = 1, y = 2; x < y; ++x, --y) {
     if (x == 1) {
 >x == 1 : boolean
 >x : number
->1 : 1
+>1 : number
 
         continue loop2;
 >loop2 : any

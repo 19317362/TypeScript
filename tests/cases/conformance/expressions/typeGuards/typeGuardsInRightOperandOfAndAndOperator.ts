@@ -1,5 +1,6 @@
 // In the right operand of a && operation, 
-// the type of a variable or parameter is narrowed by any type guard in the left operand when true.
+// the type of a variable or parameter is narrowed by any type guard in the left operand when true, 
+// provided the right operand contains no assignments to the variable or parameter.
 function foo(x: number | string) {
     return typeof x === "string" && x.length === 10; // string
 }
@@ -34,11 +35,21 @@ function foo7(x: number | string | boolean) {
     var y: number| boolean | string;
     var z: number| boolean | string;
     // Mixing typeguard narrowing
+    // Assigning value to x deep inside another guard stops narrowing of type too
     return typeof x !== "string"
-        && ((z = x) // number | boolean
+        && ((z = x) // string | number | boolean - x changed deeper in conditional expression
         && (typeof x === "number"
         // change value of x
-        ? ((x = 10) && x.toString()) // x is number
+        ? (x = 10 && x.toString()) // number | boolean | string
         // do not change value
-        : ((y = x) && x.toString()))); // x is boolean
+        : (y = x && x.toString()))); // number | boolean | string
+}
+function foo8(x: number | string) {
+    // Mixing typeguard 
+    // Assigning value to x in outer guard shouldn't stop narrowing in the inner expression
+    return typeof x !== "string"
+        && (x = 10) // change x - number| string
+        && (typeof x === "number"
+        ? x // number
+        : x.length); // string
 }

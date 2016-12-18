@@ -2,9 +2,8 @@
 interface I {
 >I : I
 
-    (strs: TemplateStringsArray, ...subs: number[]): I;
->strs : TemplateStringsArray
->TemplateStringsArray : TemplateStringsArray
+    (strs: string[], ...subs: number[]): I;
+>strs : string[]
 >subs : number[]
 >I : I
 
@@ -40,6 +39,6 @@ var x = new new new f `abc${ 0 }def`.member("hello")(42) === true;
 >member : new (s: string) => new (n: number) => new () => boolean
 >"hello" : string
 >42 : number
->true : true
+>true : boolean
 
 

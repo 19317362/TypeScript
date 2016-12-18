@@ -9,7 +9,6 @@ var v = {
  get bar(): number {
 >bar : Symbol(bar, Decl(commentsOnObjectLiteral4.ts, 1, 9))
 
-  return 12;
+  return this._bar;
  }
 }
-

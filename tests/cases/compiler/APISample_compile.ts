@@ -1,7 +1,6 @@
 ﻿// @module: commonjs
 // @includebuiltfile: typescript_standalone.d.ts
-// @noImplicitAny:true
-// @strictNullChecks:true
+// @stripInternal:true
 
 /*
  * Note: This test is a public API sample. The sample sources can be found 
@@ -19,7 +18,7 @@ export function compile(fileNames: string[], options: ts.CompilerOptions): void 
     var program = ts.createProgram(fileNames, options);
     var emitResult = program.emit();
 
-    var allDiagnostics = ts.getPreEmitDiagnostics(program);
+    var allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
 
     allDiagnostics.forEach(diagnostic => {
         var { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);

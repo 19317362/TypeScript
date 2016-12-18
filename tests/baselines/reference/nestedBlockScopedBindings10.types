@@ -13,7 +13,7 @@ switch (1) {
 >1 : number
 
     case 1:
->1 : 1
+>1 : number
 
         let y;
 >y : any

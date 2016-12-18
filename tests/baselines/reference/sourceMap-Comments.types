@@ -17,17 +17,17 @@ module sas.tools {
 >f : number
 
                 case 1:
->1 : 1
+>1 : number
 
                     break;
                 case 2:
->2 : 2
+>2 : number
 
                     //line comment 1
                     //line comment 2
                     break;
                 case 3:
->3 : 3
+>3 : number
 
                     //a comment
                     break;

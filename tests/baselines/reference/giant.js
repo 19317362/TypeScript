@@ -1120,11 +1120,11 @@ export declare class eC {
     pF(): void;
     private rF();
     pgF(): void;
-    readonly pgF: any;
+    pgF: any;
     psF(param: any): void;
     psF: any;
     private rgF();
-    private readonly rgF;
+    private rgF;
     private rsF(param);
     private rsF;
     static tV: any;
@@ -1132,7 +1132,7 @@ export declare class eC {
     static tsF(param: any): void;
     static tsF: any;
     static tgF(): void;
-    static readonly tgF: any;
+    static tgF: any;
 }
 export interface eI {
     (): any;
@@ -1172,11 +1172,11 @@ export declare module eM {
         pF(): void;
         private rF();
         pgF(): void;
-        readonly pgF: any;
+        pgF: any;
         psF(param: any): void;
         psF: any;
         private rgF();
-        private readonly rgF;
+        private rgF;
         private rsF(param);
         private rsF;
         static tV: any;
@@ -1184,7 +1184,7 @@ export declare module eM {
         static tsF(param: any): void;
         static tsF: any;
         static tgF(): void;
-        static readonly tgF: any;
+        static tgF: any;
     }
     interface eI {
         (): any;
@@ -1239,11 +1239,11 @@ export declare module eM {
         pF(): void;
         private rF();
         pgF(): void;
-        readonly pgF: any;
+        pgF: any;
         psF(param: any): void;
         psF: any;
         private rgF();
-        private readonly rgF;
+        private rgF;
         private rsF(param);
         private rsF;
         static tV: any;
@@ -1251,7 +1251,7 @@ export declare module eM {
         static tsF(param: any): void;
         static tsF: any;
         static tgF(): void;
-        static readonly tgF: any;
+        static tgF: any;
     }
     module eaM {
         var V: any;
@@ -1281,11 +1281,11 @@ export declare class eaC {
     pF(): void;
     private rF();
     pgF(): void;
-    readonly pgF: any;
+    pgF: any;
     psF(param: any): void;
     psF: any;
     private rgF();
-    private readonly rgF;
+    private rgF;
     private rsF(param);
     private rsF;
     static tV: any;
@@ -1293,7 +1293,7 @@ export declare class eaC {
     static tsF(param: any): void;
     static tsF: any;
     static tgF(): void;
-    static readonly tgF: any;
+    static tgF: any;
 }
 export declare module eaM {
     var V: any;

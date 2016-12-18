@@ -6,6 +6,14 @@
 ////}
 ////
 ////var foo: I;
-////var [{ [|property1|]: prop1 }, { [|property1|], property2 } ] = [foo, foo];
+////var [{ [|property1|]: prop1 }, { property1, property2 } ] = [foo, foo];
 
-verify.rangesReferenceEachOther();
+let ranges = test.ranges();
+for (let range of ranges) {
+    goTo.position(range.start);
+
+    verify.referencesCountIs(ranges.length);
+    for (let expectedRange of ranges) {
+        verify.referencesAtPositionContains(expectedRange);
+    }
+}

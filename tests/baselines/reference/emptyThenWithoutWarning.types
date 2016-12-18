@@ -8,13 +8,13 @@ if(a === 1 || a === 2 || a === 3) {
 >a === 1 || a === 2 : boolean
 >a === 1 : boolean
 >a : number
->1 : 1
+>1 : number
 >a === 2 : boolean
 >a : number
->2 : 2
+>2 : number
 >a === 3 : boolean
 >a : number
->3 : 3
+>3 : number
 }
 else {
     let message = "Ooops";

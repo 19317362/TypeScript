@@ -4,11 +4,11 @@ module M {
 >M : typeof M
 
     export type Value = string | number | boolean;
->Value : Value
+>Value : string | number | boolean
 
     export var x: Value;
->x : Value
->Value : Value
+>x : string | number | boolean
+>Value : string | number | boolean
 
     export class c {
 >c : c
@@ -32,7 +32,7 @@ module M {
 >c : m.c
 
     export type fc = () => c;
->fc : fc
+>fc : () => c
 >c : c
 }
 
@@ -47,7 +47,7 @@ module M {
 >M : typeof M
 
     export type W = Window | string;
->W : W
+>W : Window | string
 >Window : Window
 
     export module N {
@@ -57,7 +57,7 @@ module M {
 >Window : Window
 
         export var p: W;
->p : W
->W : W
+>p : Window | string
+>W : Window | string
     }
 }

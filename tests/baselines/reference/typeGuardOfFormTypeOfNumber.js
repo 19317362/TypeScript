@@ -42,11 +42,12 @@ else {
     c = numOrC; // C
 }
 
+// Narrowing occurs only if target type is a subtype of variable type
 if (typeof strOrBool === "number") {
-    let y1: {} = strOrBool; // {}
+    var y1: string | boolean = strOrBool; // string | boolean
 }
 else {
-    let y2: string | boolean = strOrBool; // string | boolean
+    var y2: string | boolean = strOrBool; // string | boolean
 }
 
 // A type guard of the form typeof x !== s, where s is a string literal,
@@ -77,11 +78,12 @@ else {
     num = numOrC; // number
 }
 
+// Narrowing occurs only if target type is a subtype of variable type
 if (typeof strOrBool !== "number") {
-    let y1: string | boolean = strOrBool; // string | boolean
+    var y1: string | boolean = strOrBool; // string | boolean
 }
 else {
-    let y2: {} = strOrBool; // {}
+    var y2: string | boolean = strOrBool; // string | boolean
 }
 
 
@@ -131,8 +133,9 @@ if (typeof numOrC === "number") {
 else {
     c = numOrC; // C
 }
+// Narrowing occurs only if target type is a subtype of variable type
 if (typeof strOrBool === "number") {
-    var y1 = strOrBool; // {}
+    var y1 = strOrBool; // string | boolean
 }
 else {
     var y2 = strOrBool; // string | boolean
@@ -164,9 +167,10 @@ if (typeof numOrC !== "number") {
 else {
     num = numOrC; // number
 }
+// Narrowing occurs only if target type is a subtype of variable type
 if (typeof strOrBool !== "number") {
     var y1 = strOrBool; // string | boolean
 }
 else {
-    var y2 = strOrBool; // {}
+    var y2 = strOrBool; // string | boolean
 }

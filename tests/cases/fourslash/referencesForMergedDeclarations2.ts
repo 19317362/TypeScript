@@ -6,9 +6,16 @@
 ////
 ////function ATest() { }
 ////
-////import [|alias|] = ATest; // definition
+////import /*definition*/alias = ATest;
 ////
-////var a: [|alias|].Bar; // namespace
-////[|alias|].call(this); // value
+////var a: /*namespace*/alias.Bar;
+/////*value*/alias.call(this);
 
-verify.rangesReferenceEachOther();
+goTo.marker("definition");
+verify.referencesCountIs(3);
+
+goTo.marker("namespace");
+verify.referencesCountIs(3);
+
+goTo.marker("value");
+verify.referencesCountIs(3);

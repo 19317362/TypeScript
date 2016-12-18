@@ -7,12 +7,11 @@ class Foo3 {
 //// [parser509668.js]
 var Foo3 = (function () {
     // Doesn't work, but should
-    function Foo3() {
+    function Foo3(public) {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i - 0] = arguments[_i];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
         }
-        this.args = args;
     }
     return Foo3;
 }());

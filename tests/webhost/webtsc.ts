@@ -1,17 +1,17 @@
 /// <reference path='..\..\src\compiler\tsc.ts'/>
 
-namespace TypeScript.WebTsc {
+module TypeScript.WebTsc {
 
     declare var RealActiveXObject: { new (s: string): any };
 
     function getWScriptSystem() {
-        const fso = new RealActiveXObject("Scripting.FileSystemObject");
+        var fso = new RealActiveXObject("Scripting.FileSystemObject");
 
-        const fileStream = new ActiveXObject("ADODB.Stream");
+        var fileStream = new ActiveXObject("ADODB.Stream");
         fileStream.Type = 2 /*text*/;
 
-        const args: string[] = [];
-        for (let i = 0; i < WScript.Arguments.length; i++) {
+        var args: string[] = [];
+        for (var i = 0; i < WScript.Arguments.length; i++) {
             args[i] = WScript.Arguments.Item(i);
         }
         return {
@@ -37,7 +37,7 @@ namespace TypeScript.WebTsc {
                         // Load file and read the first two bytes into a string with no interpretation
                         fileStream.Charset = "x-ansi";
                         fileStream.LoadFromFile(fileName);
-                        const bom = fileStream.ReadText(2) || "";
+                        var bom = fileStream.ReadText(2) || "";
                         // Position must be at 0 before encoding can be changed
                         fileStream.Position = 0;
                         // [0xFF,0xFE] and [0xFE,0xFF] mean utf-16 (little or big endian), otherwise default to utf-8
@@ -54,7 +54,7 @@ namespace TypeScript.WebTsc {
                 }
             },
             writeFile(fileName: string, data: string): boolean {
-                const f = fso.CreateTextFile(fileName, true);
+                var f = fso.CreateTextFile(fileName, true);
                 f.Write(data);
                 f.Close();
                 return true;
@@ -90,15 +90,15 @@ namespace TypeScript.WebTsc {
     }
 
     export function prepareCompiler(currentDir: string, stdOut: ITextWriter, stdErr: ITextWriter) {
-        const shell = new RealActiveXObject("WScript.Shell");
+        var shell = new RealActiveXObject("WScript.Shell");
         shell.CurrentDirectory = currentDir;
         WScript.ScriptFullName = currentDir + "\\tc.js";
         WScript.StdOut = stdOut;
         WScript.StdErr = stdErr;
         sys = getWScriptSystem();
 
-        return (commandLine: string) => {
+        return function (commandLine: string) {
             ts.executeCommandLine(commandLine.split(" "));
-        };
+        }
     }
 }

@@ -1,4 +1,4 @@
-/// <reference types="node"/>
+/// <reference path="../src/harness/external/node.d.ts" />
 
 import fs = require('fs');
 import path = require('path');
@@ -76,11 +76,8 @@ module Commands {
                 fs.mkdirSync(directoryPath);
             }
         }
-        function normalizeSlashes(path: string): string {
-            return path.replace(/\\/g, "/");
-        }
         function transalatePath(outputFolder:string, path: string): string {
-            return normalizeSlashes(outputFolder + directorySeparator + path.replace(":", ""));
+            return outputFolder + directorySeparator + path.replace(":", "");
         }
         function fileExists(path: string): boolean {
             return fs.existsSync(path);
@@ -89,7 +86,7 @@ module Commands {
             var filename = transalatePath(outputFolder, f.path);
             ensureDirectoriesExist(getDirectoryPath(filename));
             console.log("writing filename:   " + filename);
-            fs.writeFileSync(filename, f.result.contents);
+            fs.writeFile(filename, f.result.contents, (err) => { });
         });
 
         console.log("Command:   tsc ");
